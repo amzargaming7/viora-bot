@@ -1,3 +1,7 @@
+import sys
+def log(*args, **kwargs):
+    kwargs['flush'] = True
+    print(*args, **kwargs)
 """
 Viora HD WhatsApp Bot Server
 ============================
@@ -63,18 +67,23 @@ def send_whatsapp_text(recipient_phone, text):
 def upload_and_send_video(recipient_phone, video_path, caption=""):
     media_url = f"https://graph.facebook.com/v21.0/{PHONE_NUMBER_ID}/media"
     headers = {"Authorization": f"Bearer {ACCESS_TOKEN}"}
+    log(f"[UPLOAD STEP 1] Uploading media to {media_url}...")
     with open(video_path, "rb") as f:
         files = {
-            "file": (os.path.basename(video_path), f, "video/mp4"),
-            "messaging_product": (None, "whatsapp"),
-            "type": (None, "video/mp4")
+            "file": (os.path.basename(video_path), f, "video/mp4")
         }
-        res_upload = requests.post(media_url, headers=headers, files=files, timeout=60)
+        data = {
+            "messaging_product": "whatsapp",
+            "type": "video/mp4"
+        }
+        res_upload = requests.post(media_url, headers=headers, files=files, data=data, timeout=60)
     
+    log(f"[UPLOAD STEP 1 RESULT] Status: {res_upload.status_code}, Body: {res_upload.text}")
     if res_upload.status_code not in (200, 201):
         raise RuntimeError(f"Meta Media Upload failed: {res_upload.text}")
     
     media_id = res_upload.json().get("id")
+    log(f"[UPLOAD STEP 2] Sending media_id {media_id} to recipient {recipient_phone}...")
 
     msg_url = f"https://graph.facebook.com/v21.0/{PHONE_NUMBER_ID}/messages"
     msg_headers = {
@@ -92,6 +101,7 @@ def upload_and_send_video(recipient_phone, video_path, caption=""):
         }
     }
     res_send = requests.post(msg_url, headers=msg_headers, json=msg_payload, timeout=20)
+    log(f"[UPLOAD STEP 2 RESULT] Status: {res_send.status_code}, Body: {res_send.text}")
     if res_send.status_code not in (200, 201):
         raise RuntimeError(f"Meta Send Video failed: {res_send.text}")
     
@@ -121,14 +131,15 @@ def verify_webhook():
     challenge = request.args.get("hub.challenge")
 
     if mode == "subscribe" and token == VERIFY_TOKEN:
-        print("[WEBHOOK] Verified successfully by Meta")
+        log("[WEBHOOK] Verified successfully by Meta")
         return challenge, 200
-    print("[WEBHOOK] Verification failed. Token mismatch.")
+    log("[WEBHOOK] Verification failed. Token mismatch.")
     return "Forbidden", 403
 
 @app.route("/webhook", methods=["POST"])
 def receive_webhook():
     data = request.get_json(silent=True) or {}
+    log("[WEBHOOK EVENT RAW]", json.dumps(data))
 
     try:
         entries = data.get("entry", [])
@@ -136,6 +147,10 @@ def receive_webhook():
             changes = entry.get("changes", [])
             for change in changes:
                 value = change.get("value", {})
+                statuses = value.get("statuses", [])
+                for st in statuses:
+                    log(f"[MESSAGE STATUS] ID: {st.get('id')} | Status: {st.get('status')} | Recipient: {st.get('recipient_id')} | Errors: {st.get('errors')}")
+
                 messages = value.get("messages", [])
                 for msg in messages:
                     sender = msg.get("from")
@@ -143,7 +158,7 @@ def receive_webhook():
                     
                     if msg_type == "text":
                         body = msg.get("text", {}).get("body", "").strip()
-                        print(f"[INCOMING MSG] From: {sender} | Body: {body}")
+                        log(f"[INCOMING MSG] From: {sender} | Body: {body}")
 
                         match = re.search(r"Activation Code:\s*<([a-zA-Z0-9_-]+)>", body)
                         if not match:
@@ -151,7 +166,7 @@ def receive_webhook():
                         
                         if match:
                             device_key = match.group(1)
-                            print(f"[ACTIVATION] Key found: {device_key} for phone: {sender}")
+                            log(f"[ACTIVATION] Key found: {device_key} for phone: {sender}")
                             
                             db = load_db()
                             db[device_key] = {
@@ -168,13 +183,13 @@ Status: Active for 24 hours
 
 Your video will be sent here automatically after conversion in Viora."""
                             send_whatsapp_text(sender, reply_text)
-                            print(f"[REPLY SENT] Confirmation sent to {sender}")
+                            log(f"[REPLY SENT] Confirmation sent to {sender}")
                         else:
                             reply_text = "To activate your device, please open Viora and tap Activate WhatsApp Bot."
                             send_whatsapp_text(sender, reply_text)
 
     except Exception as e:
-        print("[ERROR IN WEBHOOK]", str(e))
+        log("[ERROR IN WEBHOOK]", str(e))
 
     return "EVENT_RECEIVED", 200
 
@@ -210,15 +225,16 @@ def upload_video_from_app():
     video_file.save(temp_path)
 
     try:
-        print(f"[UPLOAD] Sending video for key {device_key} to {recipient_phone}...")
+        log(f"[UPLOAD] Sending video for key {device_key} to {recipient_phone}...")
         res = upload_and_send_video(recipient_phone, temp_path)
+        log(f"[UPLOAD SUCCESS] Result from Meta: {json.dumps(res)}")
         return jsonify({
             "status": "success",
             "recipient": recipient_phone,
             "meta_response": res
         }), 200
     except Exception as e:
-        print(f"[UPLOAD ERROR] {str(e)}")
+        log(f"[UPLOAD ERROR] {str(e)}")
         return jsonify({"status": "error", "message": str(e)}), 500
     finally:
         if os.path.exists(temp_path):
@@ -226,5 +242,5 @@ def upload_video_from_app():
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
-    print(f"Viora Bot Server running on port {port}")
+    log(f"Viora Bot Server running on port {port}")
     app.run(host="0.0.0.0", port=port)

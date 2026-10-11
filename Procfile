@@ -1,1 +1,1 @@
-web: gunicorn bot_server:app
+web: gunicorn --access-logfile - --log-file - bot_server:app
