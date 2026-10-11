@@ -193,6 +193,21 @@ Your video will be sent here automatically after conversion in Viora."""
 
     return "EVENT_RECEIVED", 200
 
+@app.route("/get_phone", methods=["GET"])
+def get_registered_phone():
+    key = request.args.get("key", "").strip()
+    if not key:
+        return jsonify({"status": "error", "message": "key parameter is required"}), 400
+    db = load_db()
+    user_info = db.get(key)
+    if not user_info:
+        return jsonify({"status": "error", "message": "Device not activated"}), 404
+    return jsonify({
+        "status": "success",
+        "phone": user_info.get("phone"),
+        "activated_at": user_info.get("activated_at")
+    }), 200
+
 @app.route("/upload", methods=["POST"])
 def upload_video_from_app():
     device_key = request.form.get("device_key")

@@ -1,1 +1,1 @@
-web: gunicorn --access-logfile - --log-file - bot_server:app
+web: gunicorn --timeout 120 --access-logfile - --log-file - bot_server:app
