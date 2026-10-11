@@ -97,6 +97,23 @@ def upload_and_send_video(recipient_phone, video_path, caption=""):
     
     return res_send.json()
 
+@app.route("/", methods=["GET"])
+def home():
+    return jsonify({
+        "service": "Viora HD WhatsApp Bot",
+        "status": "online",
+        "phone_number_id": PHONE_NUMBER_ID
+    })
+
+@app.route("/status", methods=["GET"])
+def server_status():
+    db = load_db()
+    return jsonify({
+        "status": "online",
+        "active_users": len(db),
+        "phone_number_id": PHONE_NUMBER_ID
+    })
+
 @app.route("/webhook", methods=["GET"])
 def verify_webhook():
     mode = request.args.get("hub.mode")
@@ -144,17 +161,12 @@ def receive_webhook():
                             }
                             save_db(db)
 
-                            reply_text = (
-                                "Viora Bot Activated
+                            reply_text = f"""Viora Bot Activated
 
-"
-                                f"Key: {device_key}
-"
-                                "Status: Active for 24 hours
+Key: {device_key}
+Status: Active for 24 hours
 
-"
-                                "Your video will be sent here automatically after conversion in Viora."
-                            )
+Your video will be sent here automatically after conversion in Viora."""
                             send_whatsapp_text(sender, reply_text)
                             print(f"[REPLY SENT] Confirmation sent to {sender}")
                         else:
@@ -211,15 +223,6 @@ def upload_video_from_app():
     finally:
         if os.path.exists(temp_path):
             os.remove(temp_path)
-
-@app.route("/status", methods=["GET"])
-def server_status():
-    db = load_db()
-    return jsonify({
-        "status": "online",
-        "active_users": len(db),
-        "phone_number_id": PHONE_NUMBER_ID
-    })
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
