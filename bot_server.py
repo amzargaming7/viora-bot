@@ -18,9 +18,16 @@ import json
 import time
 import re
 import requests
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_file, send_from_directory
 
 app = Flask(__name__)
+
+@app.after_request
+def add_cors_headers(response):
+    response.headers["Access-Control-Allow-Origin"] = "*"
+    response.headers["Access-Control-Allow-Headers"] = "*"
+    response.headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS"
+    return response
 
 # ==========================================
 # META WHATSAPP CLOUD API CONFIGURATION
@@ -109,6 +116,18 @@ def upload_and_send_video(recipient_phone, video_path, caption=""):
 
 @app.route("/", methods=["GET"])
 def home():
+    if os.path.exists("viora_web.html"):
+        return send_file("viora_web.html")
+    elif os.path.exists("index.html"):
+        return send_file("index.html")
+    return jsonify({
+        "service": "Viora HD WhatsApp Bot",
+        "status": "online",
+        "phone_number_id": PHONE_NUMBER_ID
+    })
+
+@app.route("/api/info", methods=["GET"])
+def api_info():
     return jsonify({
         "service": "Viora HD WhatsApp Bot",
         "status": "online",
@@ -208,39 +227,41 @@ def get_registered_phone():
         "activated_at": user_info.get("activated_at")
     }), 200
 
-@app.route("/upload", methods=["POST"])
+@app.route("/upload", methods=["POST", "OPTIONS"])
 def upload_video_from_app():
-    device_key = request.form.get("device_key")
-    if not device_key:
-        return jsonify({"status": "error", "message": "device_key is required"}), 400
+    if request.method == "OPTIONS":
+        return "", 204
+    device_key = request.form.get("device_key", "").strip()
+    recipient_phone = request.form.get("recipient_phone", "").strip()
     
     if "video" not in request.files:
         return jsonify({"status": "error", "message": "Video file not found"}), 400
     
     db = load_db()
-    user_info = db.get(device_key)
+    if not recipient_phone and device_key:
+        user_info = db.get(device_key)
+        if user_info:
+            recipient_phone = user_info.get("phone")
     
-    if not user_info:
+    if not recipient_phone:
         return jsonify({
             "status": "error",
-            "message": "Device not activated. Please tap Activate WhatsApp Bot in Viora first."
-        }), 403
+            "message": "Recipient phone number or activated device key is required"
+        }), 400
     
-    activated_at = user_info.get("activated_at", 0)
-    if time.time() - activated_at > WINDOW_24H_SECONDS:
-        return jsonify({
-            "status": "error",
-            "message": "Activation expired. Please tap Activate WhatsApp Bot in Viora again."
-        }), 403
-    
-    recipient_phone = user_info.get("phone")
+    cleaned = "".join(c for c in recipient_phone if c.isdigit())
+    if cleaned.startswith("0"):
+        cleaned = "60" + cleaned[1:]
+    elif cleaned.startswith("1") and len(cleaned) in (9, 10):
+        cleaned = "60" + cleaned
+    recipient_phone = cleaned
+
     video_file = request.files["video"]
-    
     temp_path = f"/tmp/viora_{int(time.time())}_{video_file.filename}"
     video_file.save(temp_path)
 
     try:
-        log(f"[UPLOAD] Sending video for key {device_key} to {recipient_phone}...")
+        log(f"[UPLOAD] Sending video to {recipient_phone}...")
         res = upload_and_send_video(recipient_phone, temp_path)
         log(f"[UPLOAD SUCCESS] Result from Meta: {json.dumps(res)}")
         return jsonify({
