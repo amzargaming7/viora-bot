@@ -3,17 +3,39 @@ import re
 import json
 import time
 import requests
-from flask import Flask, request, jsonify, send_file, send_from_directory
+from flask import Flask, request, jsonify, send_file
 
 app = Flask(__name__)
 
 PORT = int(os.environ.get("PORT", 10000))
 VERIFY_TOKEN = os.environ.get("VERIFY_TOKEN", "viora_verify_secret")
-WHATSAPP_TOKEN = os.environ.get("WHATSAPP_TOKEN", "")
 PHONE_NUMBER_ID = os.environ.get("PHONE_NUMBER_ID", "1282282738312539")
 
+# Read token from all possible environment variable names used by user
+WHATSAPP_TOKEN = (
+    os.environ.get("WHATSAPP_TOKEN") or 
+    os.environ.get("META_ACCESS_TOKEN") or 
+    os.environ.get("ACCESS_TOKEN") or 
+    os.environ.get("TOKEN") or 
+    "EAAXNjPMdkMIBSjm7i8HsAUMCaC17YAPRp4OrEQZAhwIe3d9pwHIsgPKwOIFZB5eg8fz4P1yJU8mtT8RIy8JdZChZBIq0CscY5PlZA04IBt9WmF97Ud6sfoVGUQxXAZBmvikepqo2q5yBtOh66xA1JgfDdxBL5Ihxbvsoa4djqMLXFp5D447n7OSqiqsbmGnAZDZD"
+)
+
+CONFIG_FILE = "config.json"
 ACTIVATIONS_FILE = "activations.json"
 device_activations = {}
+
+if os.path.exists(CONFIG_FILE):
+    try:
+        with open(CONFIG_FILE, "r") as f:
+            cfg = json.load(f)
+            if cfg.get("WHATSAPP_TOKEN"):
+                WHATSAPP_TOKEN = cfg["WHATSAPP_TOKEN"]
+            if cfg.get("PHONE_NUMBER_ID"):
+                PHONE_NUMBER_ID = cfg["PHONE_NUMBER_ID"]
+            if cfg.get("VERIFY_TOKEN"):
+                VERIFY_TOKEN = cfg["VERIFY_TOKEN"]
+    except Exception as e:
+        print(f"[CONFIG] Error loading {CONFIG_FILE}: {e}")
 
 def load_activations():
     global device_activations
@@ -37,12 +59,12 @@ load_activations()
 def is_bsuid(identifier):
     if not identifier:
         return False
-    # Meta BSUID format: "MY.2906829746353050" or contains letters/dots
+    # Meta BSUID format: "MY.2181566849061355" or contains letters/dots
     return "." in identifier or any(c.isalpha() for c in identifier)
 
 def send_whatsapp_text(target, text):
     if not WHATSAPP_TOKEN or not target:
-        print(f"[SEND_TEXT] Missing token or target: target={target}")
+        print(f"[SEND_TEXT] ERROR: Token or target missing. token_present={bool(WHATSAPP_TOKEN)}, target={target}")
         return False
     
     url = f"https://graph.facebook.com/v21.0/{PHONE_NUMBER_ID}/messages"
@@ -51,33 +73,60 @@ def send_whatsapp_text(target, text):
         "Content-Type": "application/json"
     }
     
-    payload = {
-        "messaging_product": "whatsapp",
-        "recipient_type": "individual",
-        "type": "text",
-        "text": {"body": text}
-    }
-    
-    # Meta Username Privacy / BSUID compatibility:
-    # Use "recipient" for BSUID, "to" for standard E.164 phone numbers
+    # Dual-attempt strategy for maximum compatibility
     if is_bsuid(target):
-        payload["recipient"] = target
+        # Attempt 1: Meta BSUID with recipient field
+        payload1 = {
+            "messaging_product": "whatsapp",
+            "recipient_type": "individual",
+            "recipient": target,
+            "type": "text",
+            "text": {"body": text}
+        }
+        try:
+            res1 = requests.post(url, headers=headers, json=payload1, timeout=20)
+            print(f"[SEND_TEXT BSUID recipient] Status: {res1.status_code}, Body: {res1.text}")
+            if res1.status_code in [200, 201]:
+                return True
+        except Exception as e:
+            print(f"[SEND_TEXT BSUID recipient] Exception: {e}")
+
+        # Attempt 2: Meta BSUID with to field
+        payload2 = {
+            "messaging_product": "whatsapp",
+            "recipient_type": "individual",
+            "to": target,
+            "type": "text",
+            "text": {"body": text}
+        }
+        try:
+            res2 = requests.post(url, headers=headers, json=payload2, timeout=20)
+            print(f"[SEND_TEXT BSUID to] Status: {res2.status_code}, Body: {res2.text}")
+            return res2.status_code in [200, 201]
+        except Exception as e:
+            print(f"[SEND_TEXT BSUID to] Exception: {e}")
+            return False
     else:
-        payload["to"] = target
-        
-    try:
-        res = requests.post(url, headers=headers, json=payload, timeout=20)
-        print(f"[SEND_TEXT] Status: {res.status_code}, Body: {res.text}")
-        return res.status_code in [200, 201]
-    except Exception as e:
-        print(f"[SEND_TEXT] Exception: {e}")
-        return False
+        # Standard Phone Number
+        payload = {
+            "messaging_product": "whatsapp",
+            "recipient_type": "individual",
+            "to": target,
+            "type": "text",
+            "text": {"body": text}
+        }
+        try:
+            res = requests.post(url, headers=headers, json=payload, timeout=20)
+            print(f"[SEND_TEXT Phone] Status: {res.status_code}, Body: {res.text}")
+            return res.status_code in [200, 201]
+        except Exception as e:
+            print(f"[SEND_TEXT Phone] Exception: {e}")
+            return False
 
 def send_whatsapp_video(target, video_path, caption):
     if not WHATSAPP_TOKEN or not target:
-        return False, "Missing token or target"
+        return False, "WHATSAPP_TOKEN or target missing"
         
-    # 1. Upload media to WhatsApp Cloud API
     upload_url = f"https://graph.facebook.com/v21.0/{PHONE_NUMBER_ID}/media"
     headers = {"Authorization": f"Bearer {WHATSAPP_TOKEN}"}
     
@@ -95,30 +144,47 @@ def send_whatsapp_video(target, video_path, caption):
             
         media_id = upload_res.json().get("id")
         if not media_id:
-            return False, "No media ID returned"
+            return False, "No media ID returned by Meta"
             
-        # 2. Send media message
         msg_url = f"https://graph.facebook.com/v21.0/{PHONE_NUMBER_ID}/messages"
         msg_headers = {
             "Authorization": f"Bearer {WHATSAPP_TOKEN}",
             "Content-Type": "application/json"
         }
-        payload = {
-            "messaging_product": "whatsapp",
-            "recipient_type": "individual",
-            "type": "video",
-            "video": {
-                "id": media_id,
-                "caption": caption
-            }
-        }
+        
         if is_bsuid(target):
-            payload["recipient"] = target
-        else:
-            payload["to"] = target
+            # Attempt 1: recipient
+            payload1 = {
+                "messaging_product": "whatsapp",
+                "recipient_type": "individual",
+                "recipient": target,
+                "type": "video",
+                "video": {"id": media_id, "caption": caption}
+            }
+            res1 = requests.post(msg_url, headers=msg_headers, json=payload1, timeout=30)
+            if res1.status_code in [200, 201]:
+                return True, res1.text
             
-        msg_res = requests.post(msg_url, headers=msg_headers, json=payload, timeout=30)
-        return msg_res.status_code in [200, 201], msg_res.text
+            # Attempt 2: to
+            payload2 = {
+                "messaging_product": "whatsapp",
+                "recipient_type": "individual",
+                "to": target,
+                "type": "video",
+                "video": {"id": media_id, "caption": caption}
+            }
+            res2 = requests.post(msg_url, headers=msg_headers, json=payload2, timeout=30)
+            return res2.status_code in [200, 201], res2.text
+        else:
+            payload = {
+                "messaging_product": "whatsapp",
+                "recipient_type": "individual",
+                "to": target,
+                "type": "video",
+                "video": {"id": media_id, "caption": caption}
+            }
+            res = requests.post(msg_url, headers=msg_headers, json=payload, timeout=30)
+            return res.status_code in [200, 201], res.text
     except Exception as e:
         return False, str(e)
 
@@ -157,9 +223,7 @@ def webhook():
                 contact_username = contacts[0].get("profile", {}).get("username", "") if contacts else ""
 
                 for msg in val.get("messages", []):
-                    # Robust Sender ID extraction:
-                    # 1. Phone number (from msg.get("from") or contact.get("wa_id"))
-                    # 2. Meta BSUID / User ID (from msg.get("from_user_id") or contact.get("user_id"))
+                    # Sender extraction for both phone numbers and Meta BSUID User IDs
                     sender = (msg.get("from") or 
                               contact_wa_id or 
                               msg.get("from_user_id") or 
@@ -169,7 +233,6 @@ def webhook():
 
                     print(f"[INCOMING MSG] From: {sender} | Body: {msg_body}")
 
-                    # Detect activation key format: <key> or hex string 16-40 chars
                     m = re.search(r"<([a-zA-Z0-9]{16,40})>", msg_body)
                     if not m:
                         m = re.search(r"([a-fA-F0-9]{20})", msg_body)
@@ -192,28 +255,38 @@ def webhook():
                             "Status: Active for 24 hours\n\n"
                             "Your video will be sent here automatically after conversion in Viora."
                         )
-                        send_whatsapp_text(sender, confirmation_text)
-                        print(f"[REPLY SENT] Confirmation sent to {sender}")
+                        sent = send_whatsapp_text(sender, confirmation_text)
+                        if sent:
+                            print(f"[REPLY SENT] Confirmation sent to {sender}")
+                        else:
+                            print(f"[REPLY FAILED] Could not send confirmation to {sender}")
     except Exception as e:
         print(f"[WEBHOOK ERROR] {e}")
 
     return "OK", 200
 
-# Device lookup endpoints (supports both /api/device/<key> and /get_phone)
-@app.route("/api/device/<key>", methods=["GET"])
+# Device lookup endpoints supporting all route variations:
+@app.route("/api/get-phone", methods=["GET"])
+@app.route("/api/get_phone", methods=["GET"])
+@app.route("/get-phone", methods=["GET"])
 @app.route("/get_phone", methods=["GET"])
+@app.route("/api/device/<key>", methods=["GET"])
+@app.route("/api/device", methods=["GET"])
 def check_device(key=None):
     if not key:
-        key = request.args.get("key", "").strip()
-    key = key.lower()
+        key = request.args.get("key", "") or request.args.get("device_key", "")
+    key = key.strip().lower()
+    
+    if not key:
+        return jsonify({"status": "error", "message": "key parameter required"}), 400
     
     data = device_activations.get(key)
     if not data:
-        return jsonify({"status": "not_found", "message": "Key not activated"}), 404
+        return jsonify({"status": "not_found", "message": f"Key {key} not activated"}), 404
         
     elapsed = time.time() - data.get("timestamp", 0)
     if elapsed > 24 * 3600:
-        return jsonify({"status": "expired", "message": "Key expired after 24h"}), 404
+        return jsonify({"status": "expired", "message": "Key expired after 24 hours"}), 404
         
     target = data.get("target", "")
     return jsonify({
@@ -224,7 +297,42 @@ def check_device(key=None):
         "expires_in": int(24 * 3600 - elapsed)
     }), 200
 
-# In-App OTA Update Endpoint
+@app.route("/api/config", methods=["GET", "POST"])
+def config_status():
+    global WHATSAPP_TOKEN, PHONE_NUMBER_ID, VERIFY_TOKEN
+    if request.method == "POST":
+        data = request.get_json(silent=True) or request.form
+        token = data.get("token") or data.get("whatsapp_token") or data.get("meta_access_token")
+        phone_id = data.get("phone_number_id")
+        cfg = {}
+        if os.path.exists(CONFIG_FILE):
+            try:
+                with open(CONFIG_FILE, "r") as f:
+                    cfg = json.load(f)
+            except Exception: pass
+        if token:
+            WHATSAPP_TOKEN = token.strip()
+            cfg["WHATSAPP_TOKEN"] = WHATSAPP_TOKEN
+        if phone_id:
+            PHONE_NUMBER_ID = phone_id.strip()
+            cfg["PHONE_NUMBER_ID"] = PHONE_NUMBER_ID
+        with open(CONFIG_FILE, "w") as f:
+            json.dump(cfg, f, indent=2)
+        return jsonify({
+            "status": "updated",
+            "has_token": bool(WHATSAPP_TOKEN),
+            "phone_number_id": PHONE_NUMBER_ID
+        }), 200
+
+    return jsonify({
+        "status": "ok",
+        "has_token": bool(WHATSAPP_TOKEN),
+        "token_preview": (WHATSAPP_TOKEN[:10] + "..." + WHATSAPP_TOKEN[-5:]) if len(WHATSAPP_TOKEN) > 20 else ("SET" if WHATSAPP_TOKEN else "MISSING"),
+        "phone_number_id": PHONE_NUMBER_ID,
+        "verify_token": VERIFY_TOKEN,
+        "active_devices": len(device_activations)
+    }), 200
+
 @app.route("/api/version", methods=["GET"])
 def get_version():
     return jsonify({
@@ -248,7 +356,6 @@ def download_apk():
             return send_file(p, as_attachment=True, download_name="viora.apk")
     return jsonify({"error": "APK not yet uploaded to server root. Please place viora.apk in server directory."}), 404
 
-# Video Upload endpoint from Viora Android App
 @app.route("/upload", methods=["POST"])
 @app.route("/upload_video", methods=["POST"])
 def upload_video():
@@ -283,4 +390,7 @@ def upload_video():
         return jsonify({"status": "error", "message": resp}), 500
 
 if __name__ == "__main__":
+    print(f"Starting Viora Bot Server on port {PORT}...")
+    print(f"WHATSAPP_TOKEN set: {bool(WHATSAPP_TOKEN)}")
+    print(f"PHONE_NUMBER_ID: {PHONE_NUMBER_ID}")
     app.run(host="0.0.0.0", port=PORT)
