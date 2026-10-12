@@ -1,1 +1,1 @@
-web: gunicorn --timeout 120 --access-logfile - --log-file - bot_server:app
+web: gunicorn bot_server:app --bind 0.0.0.0:$PORT

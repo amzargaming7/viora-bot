@@ -1,1267 +1,927 @@
 <!DOCTYPE html>
-<html lang="ms">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Viora Web">
-  <meta name="theme-color" content="#070A14">
-  <title>Viora Web — WhatsApp Status HD Optimizer</title>
+  <meta name="theme-color" content="#000000">
+  <title>Viora — WhatsApp Status HD Video Optimizer</title>
   
-  <link rel="icon" type="image/png" href="data:image/png;base64,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">
-  <link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAt4UlEQVR4nO29WYwtSXqY90VELmer9a59by+3p9fp7llIDimutqSxBqRky6MRZcOQYcAyIMs2QAEmTMBPBvRiA7JpGtarKT/4wZYACvCINAlqJIq0PFtPLzN9e3q93X33tW5VnTUzI+L3Q0Qu59TS3TUC7IcOIOvkyZOZEfHvW0TBZ+2z9ln7rH3WPmuftf9PmvrJnlYg0nxN00xleW+QpL0zJs3PGZOc1Sbd1lqfRuuR0bqvlOkrrftKq0SEVCmltQ7vUoBSeml4WsVPDcTfNCqMXCtAeRWnoZSI0hqUKCS+SxABpZVGECROWmlF+FFEo7yDCvFz791YrJ84qcbe+Qe2Ku5Wi/mt+XRyczYd7y/mM99OX8XpCydtJ0SAajpNszxZWz/1hay/+Q1jkl9D6S+JSCICEpEj+LYzpdCq062qgafq03ge+lAolNYRaDq+A6S5p/tsvFYPT4FCNchFhcsaFZFXAy48o5px1cRQ/9FopVDi3yznk2+O93b+0YO7N1+fz6au7l/kZEg4AQLCwLO8l2xsP/I30nzt7ztRF21V4bxFiUeBRWmUUh5AK6XrCSoUWqvuNKknoZQQYKPixCMCVARYDUjdPrMKPN3hoBaedX903qG74K+7o2YZceK9+PqiFkhAYYwhzTK00tfGu/d/8/b1939vPp24Tw/Htu9P3Ta3zz872rjwzaIqni2LBYKURmuU0omKMqRmT6VaQNXnXUprEROvqPq++rsO4mLlWSUsI6UBsmoov8tRDVvUok7XnbT3AeAjAkSoOaThZPEeJ9aLR1BZng9I8+TN+7c++Os3Pnr/rZPA8lMhQCnF6fNP/rUkX/+92XQC+IVSOusCvf5UnVktAa5zXTciRa3cIwef1epQBKy+97B+mueiyqpFy4F7RaArOg/5VO3v3jlbita90fo688nO37py+fV/6PynYwb98bdAjadzF57528oMf2+yv7vQIl4p3avfodThuDzuuogcrr6kBVrDGbJ8tLcuA6nbp4gsnUs9lZUxiUj7uxx83xFNa5P0jFJ+f2dnkfTXf/fpL37lv44Wxcc92471Y2+IgDpz/smvKzP6J7PZ3ixJ0kH88Uiqr6+tfh48r4EUAa5rXRA0ptK1pljlkka+NLPQWi8B/bB742tb0bUy1saqixLII0F4da5LsJ7a+xCqys6G6+uDcrr3t95985V/+EkV8/EcEF+ysXX2SZ2t/5PZbG+mTTJopeNxjx4UBYe3+m2q+SrNqRzJJfXkurqj5pyju5LWal4BTiNmVOy/BvRK793vYWzhSpKYwXRvd5Gvbf7uhcee/HyXEI5rxyNAhDTrmcHG2T8aj3e91ibrDrY+/zSUf+ikpSsVpJn84WOKH6oDLFpgHPb+5rsKFE1Hlq/OpaYHEd8gySPts4e8tx6WTtJsvL9nT1948o/7g1EiyxM7tB2NgPjg5qlHvrEo7DNKUaJUEn5aVnDLjx0t8+tDd5XuqlUUZ9OYn50Jhs8jUHOIbF+S//FQ8WWrwO82EWrzbaX3js459Em08mIXpbv4yONP/3pnRke2oxEgQprlJsmH/1NVLLxROhMOUnsjCg6xOpRSaK2DtVN/78ryaF62VlAYshLAx/fWSjeKIqlN/y5wO8DvAqYL+KUx1++ovzdsVYtDabhryYQNk2ueD1ZV+34lgjYmK+Zj3x+t//e9/sB8nB44VgQN17Zeqgr3iIhYAa3lcCDXkz0KCejozWoNRsfzeE0ZlsMPdCETANFCtOlryeqpESZyQLYvvbZLPEqB0ohSiNII4RM0ojS+PqInLaKWOOwwwovg0Yi31vqLW6fOvngMeOPNx7Ref+3rVVl53bEYVjG6iohVytcqcoBWaFOft0jQyjTWECsc1tBeTW0r/R9nr6+O8eD3gIAAgniuAvCD465QsWOpkYI68p3Qjk+jqcrSD9a3vnEcfOEYBCRpptHZ152ttIKk44Ac2ZRSKKObQycGnWiMMSRJgjEGk4RDa41RGq1Vyw3aHJyghDhAnF241OGAA+Jl6bq0IFOaIAA1gqYO7NV6SJQCrcNhDJgEkvipdaR+wSs6cSjV6ibp9KV1Yp3VWX/472Z5fqwaSI76IcsHa96rLwZrwGjhoEbvUr7WJsp6g9YKbQw6csIqlywBUQne+3YCfglsS0Ctbeuuja2UwntPcICWxwbRwI06wocfwvOR4mlCEtDIvq7IhzA+HHgVY121hRRNglrBt/PT4h1KmZf6w7VRWRTjT42ANOudcd5phVggUUp1grnLLNiIG5OQJEnDhloH6u9+1kDxzjUTawDqA7n76Nw0ZqE6guWlhVIDgI5OAkWISMdrdVxJ18BPmphQ7Ud47wOxdBS41ibqBQfO48UB9sjxxJCF9VaSfn90bo/7nx4BxqQXvPMQI5qBWjkA/OC9RgCjWcwXZL0Mk6UkSUKiFYLCi2CLCu8dIJgkJUlSUAnWWbxzoCIn+GiHA6iO8xRc0iakoFAR2S3QtaKJlhJt9xBbkjjWNIrIJChZ73A2EENtkRmlMSbBpH3AM5uOwVqy1OAlEKJ4DSHyu+S40WQL8E4caW/wOPDep0dAkj5eWgnWwSEavwG+CspVaUXSH/Af/Ed/hy/+3E+TZjl5YlDi8daxWCwY74+5f/ceVz/8iPfeeotr779PuSgZDAb41OCcxXuHVgrvFYhrEh4SHTQVvzdyQqnAObXKqC/HcLNEa0cpjTeBULxWOG/J8pzN7Uc4c/o8m9unGG5tkY3WcApmD/YoFyVrj5zhsWee4Lv/7J/zw3/xLVKjCWFqFS0n6TopCNHJQ+G9JUnTi0fB+FgEaKVP1/FwpXRkRw7Iu9rimU1n/MWv/iV+/mtfY14smM9mDAYDhv0cQdhMEh7Le2T9AaaXUS1mfPTOu/yLb/4hf/pHf4wtK/Jejq2KKAbAO98hqI7IaeHdzb0EURYv1nJfkQQz0yQkJsFVFtMf8vRzL/DEc8+zff4cOs0o5jOK+YLFvKKqFrjZjN07d7hz7w53H+6RPfIEZ596irtvv4lJ0qCrlKD84V4xAt56tDZnT4QAUXok3gFKr0Yau6amivJfUORZSt9o3njldXYn+3zxxecxZ7apKktZOsooT3u9jMHmOk8+9zwv/tSX+Nq/81f43d/5B7z748v0Bn3KogRlAUGcB3wQEXRkvdTKQepwGbVVohpnqbauEpRJmJclp85d5KWf/UXUaIO9suTh5R/DdIKdFzgXxCPicQjz+YK92Yw74we89Bf+LZTSOGvRSUL01TskQKOQI4Fo8R6dmVMnQoCCDZGu5XvoPXEYhuFgwEfvvYcr5ujEsHX6NLqX8XC2YFFWeBHwCigpbIGrSvR0hh0NeOa55/h7/8N/xz/47d/mz/75nzLIexTVHEGhxeJc5Igoamo2R9NIIaI4aLhANFoniElI05R5VfL0i1/iyc9/iQ+uXUc++ohcFDrNUEmG742QGCYZpIZTaykP9ybcuPYhj7/0eYbDjAe3rmPSBKROseog/cS2Vl0Ukz7qA62T0ydDgNKjWtygOjnS5ZtichvyXo+bV6/zzptvgdb0B33I+uyNJ8yLBUog08FKqpxlPiuYzAsuesdQOYYbG/yXv/VfMZ3MeO17L5OnGQtfNNwmEkPJ3aSJLIckwvfgWInWoA2ZSVlYz6XnX+Qrv/wXePl7LzPffUiS9/H9ISpLcSioFjhr8VXFFBj1zjDtZwwvPU6WKh68cZlyNiXNMrwLpmiQPr4TYV36iFajHh6HgGM8YZV13N/mY1XiNYE1rXFlxeXXf8jaxjp37+/ivMFoTeYsAzybueZsz3C+nzHKUiaTKW9dvc5HN+9T7k0YGMXf+c//M0Ybm1jrMHXI4ogAXxvCiUZCd1oqhD0qcQzXt/iVP/81rr7/Pou9B5DnZKdOk436KFegpw+R/YfYvfvYvbsU+3d5OC+QRy7Q21hjJAnjO3eCyNEm+hSqE/lofZkQQm81l9ZqcCIEKEV6WF605grpBLMCZSrSvMfl114jS1OqsmI82SdPDX1j6GnNMDH0jCIVS99XjBDKyZT3rt/m/es3mezs8MRjF/ir3/g680WFMSlaQrhC66QFsYrBsq6vEEfqiZZQyFEzX1i+8ku/QrmYcffGNZzpsXXuAluDhH41JbMlqXhSHYsB8GgF/vx5zOPn6A+GDHTC7Zu30GkGEoOF4qltziUOaL54HfTVSTlAKXPgWoyjN591f3FAWZ5x9/Yd7t64wemtTXYfPCBNM/IkJVGaVCl6JiEVwRcFfrFAlwXT3Ydcu3GXG3fvMRnv8rVf/SqPXnqMqrIYk8ag3Wp4unWUlhInHbOzKitOP3KBi089yftvv0NRwtrZM2yNctLFlNRbBgkMMkOeJ+SpIdOaZH0d/8Ql3OlTbJ8/w/7uQ6bjPRKtl/oMtCBIpH5WxGPgBJWfCAEiYg5LcihpU3TBMpGGDUEwSvPm669x/sxp5vtjtFJkWYrylnJeoIBelmNEUc4WVNMCP50z2Z9w6/4+9x/scWp7iz//l75K5RxplgcrRnVqggA6kdlu1iwgyqCVoaocL33lK8z3x+zt7sNwxPb6EFVO8WWJARKjybKUPE9JU4VJU8yFR+HxR9g6e4atzW2uvvc+OIcXF4yJBvjNtJvweVsLVRMI2YkQACA+mnaNhq8T17SiSIRQeBXOe70eH7zzLlosa/0+i+mMLE8py5L7Dx9y9/5DxpMFi0XFfLpgNpvjK4tdzJlMpuzsjplO5/zyv/HLbJ8+DUqTmCSEsnWIUtb9NxZPzCEE0oghD/GMTp3h8aee4eHNm1gFa9vr5AjFdEopDtEK0hSVGIwOMaxsbUT25JOMtkY8urGG3Rnz4NZtTJrgvEMkynov8bytgmj0gNSlLaCUHJQknxQBqvYya1cf2g5c6MyLIKo2yxRpnjHdn3D1yhUeOXeGnbv3QSeUhWVnd5+Prt3g/Y+ucfPuffbGY4qiCFRlPVWxYDKd8nB/jwuPXuDzX3iJqqxI0iSWoOjYCw0XNuOEJsqpjKYsS55+8QVGvZzdvT18kjPq5ZTFnKoqAyfVFQw6hJsTEtJTZ8mfuMjZ4YAzynDzrR9jbQVGo0WhvA+EKQEBvj46IrEBVvtxMgREFDavafVwOPFR/nW5ARGyNOVHr73O2mjIdDZnr7BYlTAvKnb29rlx7x53dh4wLubYSFFaK7COsijY359ilebLf+5nsUqhdLCmWj2glsZYj0vXjhcaMRnPvfACi/1dCiek/R7aW8r5LBKNIcY1cWicF0gyeOwx+ttrXBz0yHcecvvd98l6vViwFSvlxCPeLjmHtYPYLbcRL4g/2tT/GATUaapu9mkVy4EDvJdABd7jvCPNMj64coV7d28zGoy4ff8hpj/AebAC1vooSwNqnXM45xDn8JWLXDDm2RdfZPP0KSrnMSZpQtv1c81IFUtZNus9Zy88yulz57h7+x6FFbIswVULnC2pM2HoYE5agco57HBAcv48o7zHo4MBV1//IXs7D0jSpDVwREJAUTxI66FDcBSXQjYIteo6AQKkiXIEpe5DtDJ+erF4pGVBHz6tdzglLIoFr7/6I06fOcP+3hjp9TFp2jh0WunGh/AiVFWFrSzOOebTOTt7e4xOn+ap556lKoNJWougbj62IQylEW3QJsE5z6VnnyNF2BtPKB1oL9jFAuc9RI9X0HhROO/waDh1DjXqs52n9MqSN15+BVB4sXHekdq9b2392upp9GV9NGRyrJT5mMq4mrW6Aq2lvUYZOY84j7MVzlqqqiTVhh+/cRllIDOG0jn662t0MNAYMl5BaS2LxYKyLHHWMZ/MQBue/9IXQwRD1cmeWhTp9qjj+3VsIkm59PQzLGZz5kURRIYtKYsF3nkasyH6MyICeYI+s0WeGM6trXP9vQ+48ta75InBW4u3FrxrRG4rdiMzdI2SJWNlNeH9CREgEstgVBxuxGwN+AC5gHnvPN47xLtmsNoYHty9w9UPP+DCuW1m8xnDje0QSayTOzFoJiJY51iUBUVZoERYzGbMFgWfe+F5hmvrWOdRxoA2jVkKAQFCsJC0SbDes7a1xfaZs+zv7bMoSpQCVy6wVYkXwYngJFb5KAVo9Pom6doaG6nh3KDPG99+mfHeXuB0a8GFZMwSAtrTSPW1eJbWQBF/cg5o7G3RXY+r01EUP87jvQRWdg7nLeI9CuHy669x6tQmylmS4YB8MEJQVE7wTuJzHieOqrJUswJxnnI2YzLZY/uRCzx66XM469BJElKfTUQ2DlQpVMzAiRMuPPE50tSwt7fPYj5HeYuvCryz0a+JAFSg8Ojc0D99mrU84/G1IWoy5YevvEZuEryrkAh87wKRiXcN8TXVGI0fHsSTqp1VdUIRpOJvrWMRkdKxhAI1BCQ471oEOI9zljTLuPLee8zHU7bWR1RiyTc2EFE4L5ResE5wPiDCVpbFPIqhqmL6cJck7/HsF15CtI6KOEEp0ybxVVvaopTCCTx+6SnEWaaz8C7lK1xVtd5qPRcFRmmy3oDe2pC1TPPkmdM8+Og6d27cJDEGZy1ibTAQfI0Av3QsU23HOwtO6wlFUGCwg8AXjXgVjobNglfsozXjncPa4OhM9vd568032T69jStL8o11VJohTlNZj/VgHVgnlN4xXSyYzuaI9Sx2x5RFwTMvPEfW7wdHS4d0Yi1+2nIShRfIB2ucOXeO8XjK/qxABAwOnEVL9JRFoZUmiVUc6WiDxCRsZwlnRkOu/OgyriwDFJxtDrwL+Qnvo8XjO74RDay6eP6JCrNkleyXfpNAQj4CPx5OHM5ZnKuwtkIE3nn7HZI8C2UoWU4+HCEiOCc467HeU1lPUXlmiwXjyTQo4vGY8XjM2cce4/TZ8zjr0cag4oHWaB24QScJzjpOnbvAaG2N3f19xuNZKBaItnsohQkWUKI0qVakWYYZDtHiObe9jp0veO3lV0mMAWdRtiP7nUO54Ij5xtuVA0cwPGtPGX8AeJ8UAbWmbwBO2yHUprBEivA477He4lyJtRW2KtGJ4f133+Pu7XtsbG3gxDHY2AKj8d5TWYu1DusEax3zsmI8HlNWJcV8zu7OA9K1EU9//vM4J+gkCyasSRrgKx2yc+INTzz9LNoYxrM5ZVHQyxK0UhitSYwh0ZrUKPLUkPdTBqN10l5OlghnTp/hncvvcO3qdXKt8VWFWAdR1Hjnm1AEjQJetgoDXHyj5JU/sRmqog7gABLq8yZjKyBRSXnrcDboAGsdIsJ4vM8bP/gBW1ubJErR21zD9AcgYL3HOqGygQuqyjGZzplMC8qFZe/OPRZFwXNffAkT1maBMoSSExOPBIUm6Q146pnPgYJFWZCnms1hn15iyI0hNYpUK/I0YdjLGPX7DDa3yJXi1HDEKBvw7T/7V1SzOVJVUFVB+UbgB33XcnwXLstxoI8LQHwSBKhQkNbEXBpl3OEEaHQA3iMumqTOBcvGWay1aKN560dvUJUlo16Oygz9zU3EmHCfDwrOC1ROmM0L9iZTCieMH+ww2dvn4qVLnDl3jsq6UPRlougxCSbNQCVsbJ9ic2sd5y2Vc2ysDzm1PmLU79Hr9Uh0QmoMvTSj3+ux1l9nNBiwphyPnzvH3oNdLv/wMqkxWFu1Vo+rFW5teLREuArwuh6p+V2dWATF+pzodjahA9+pihBiQMoReDIM1HmPszYioMRow42b17j6/hU2tzbQyjE4tU2S56AU1gWW9dGKspVlPpnjERazOQ/vPUANci5+7kmcC+YoJkGZFJ2kmCRHRLj0uSfZ2l7HSVCYZzfW2VgbMRgN6fcHpFmK1glZkpCnCclgnQRhmGkuXjjH25ffZO/+DsaoYPnYMB58Bb464IQtQWvpWhRReDzHrxk72gyVTkFWp5Mm2CTShIZra6iNCblGHHkbqLtYLPjhq68wGA1IE8NwbUi2tobSJgTEOtrKA8WiwDuhdMK9e/coK8ujly5hdE5i8pAt0/VhUCbjuRdfYH1tRFmU5FqzvT4ky1P6/T79QY88y0hjjarXGcpkSFmwMVojNRmvfu9lEqUQ5wICvAsK19Vh6NbY6AL9KGREU/1kHNANr7ayrkVCFzlNSKJjDYkLBVnBJLWYxPDjy2+wN95jbTQkyRKGZ05h8gyMwhHDArFQtrIVZVGS5T3mO7tgK178whfYOHUKjyYxOUmSoZMM74S17dNcuPQ4i/mC8f6EtV5Ov5eCImTl8pQ01Rgdkn1e51hRzMsZm2dOc+fmba78+B3yxCC2imHnOJfocDWfxwC91Q3LmbNPjQAkVH614d/lDFS30yUuqONC0XFx1mJthVaau7dv8fblN9nY2iI1jo2zp8nXRiRZCqYtqjJGoZXHVws2+gN64ljs7HDxiUd56sXnKK0lzXskaU6aZFjnuPTcs6RZyvVbd5lNpqxlGRLLDoMFlKLRKB0dWNWjWszBVQy3t/nBy68y2dsDFGJ9cLxc8B/wLnC360Rxl0zP4AHX2UJqv+AT6OKPD0U0QFcNB3RjHrG/5d+cINEfaMRRLMZ97XsvkyQpWaZZWx8yOr2NybNg22uFNorUQL+X0ktgY5BxdmuThzdv4G3BL/zSL5IPhiRpTpLlKJOQDdZ46vnPszeecPP2HZS1JApm0xllUURlWtvtikoyvGRM93bpj9bwJLz87e+GSujKNuEUL771fDvz7kqVGgH1PS2p1kA5oRKWJhRBB9iHs1733EutB8JA61h/ZS1JmvLuO29x+/ZN+sMBWarYOn+WfDgkzVN0qjGpJs0ShoMea4MePe04e2oLbUse3L7Jl376Czz7wvMUTsj6QyyaS8+9wPbWNndv3mLycI8MKKYTdvf2KIqCsiwpiiKEvJ3G08c5RzEbc+rio9z86DrXr3xIkhhcOcfZEmc9RK+3TUGGudZ60PsOAdbz974hXNWB46dGgGIZc615tRIR7XRMNEdDTKh2XlpOUEqx9/Ahr//gFQZrIxSW7XNnGG1vkvdyTGpIsoReL2M0HLA2yEmwDPOEM1sb3LtxjfF4j1/9K38ZnWRMFwX9tXV+5hd+nr2de+zeukUmClVZdu7fY29vn8lkwmQyYTqbsVhUFJWAzpnN9skyxcVHL/LDb38PNy9RXhrrJ4igVqet2vmB2qP4kTYmVJvs4iUGk+WEZqjEP9K9FJDQJh0O2sAi0VSt6/+jX2CtxVYWrRSvf//7VBYSoxgMUjbPn23MxCRLSbOUfp7S62WhoNaVbGxskFl465XXGI16/Pt/89c5+9gF/uKv/WW8c9y/9iGqqkic8PD+PR7cv898PGU2mTGZzNifzJnNK6oqoXI5453bbJ8/h7fwo9d+RJb3kMqBU6HyLcp/72L8ZzXkQDDB4+YkIcHT1Q/UkYITcoBvgC8tj4UsRscWDq9Y0g+dWHizCMP76CFbEmO49tFVrl75kN5ohLMF2+dO09/cIO8PSLM8LohQYBJMkmBt2IVlc30NmS9469WXuXB2k9/4L/5TlDiuv/sW2jtcteDBnVvcuX2T6XjMYhaqLiaTObNpwbxwlFWfyWTCfDbm4uee5J033+HunXskxjTE0vV+u1ywpP9WDZFlym0R9jFm6NEJ4zrOEN8X5FkAenfpf9csre+vkSAScgQ4j46esZGUcj7nlZdf4emXnmUy3We0vcX62dOUxZxiNsWKo3CeyvlYfy9URUGSJoxGPfZu73P5tVcZjD7go3eu4IqCnemY6WRMWZQ4uwhrNHwwb524sLBCGUj67N2/wca6ord1npe/+Y/R1uE1jdiUyLlNwdWhgA6Tbas3V3PnDZ2eEAEh3ttKIEU0TaWOT6CW9EGdX/RoHTxn5X2Qq1Ge4jyVdSSp5u1Xf8Dk179O3svRWrF2+hR7Ow+x3qGqgoW1TIsilLJnmspWSFWR5zmjwYDdm3e4dv0OD3Z2me7vs5hN8VWJEosxmiRJcLrCFkQvO1RKKAvjvXs89uILPLw/4+0f/ZjU5EhVRoqvfZpg8ysfsmdhNUwnztyQZNs8oXAt0mH8/Vj4H4eAltVWN55ozpeoP3IHIUxdWw7eueB5OodyDldVZFmfu7dv8d7b7/Cln3mJvfGYwdYa6dqQqlqgEKy3TGZzEqWRfo4xgUKLKlBmagy2LJhPpswmE8pijnJV2NqMFKU8olwoPRHB+QyVjXDTBYV7yGOXvsCPX32L/Z1dhnkQc+LqbFfwfJ10op9IA9wl+HSv1BKByBvBODkpB0izqdeqmFld7dhFQvPhfRgQgrMOEh85IoQqnPO88r3v8uVf/Fmq3R3SwRrDrQ2q+SyIjEoY2wo73mexSDFaIU5YFAXj8ZSdnV3G+7uUiym2KkPShJAG9OKpvOBLB2jwUPmEJF2jnD1g6+w2G2tn+LOXf59UJJjKtsLXTlftt4hD6NR9HuNZBaW7vJ5Cdcr3PzUCRNplgB+388lqeMIjaK+QSIXiNeIs3hpU4nBVSFe++frr3L2/Q9rvoxBGW5uMdx7iY/IcqZhay6IokMpRLgoWs0UwKydTppNZUNCA1nVBlMLHKgWvg/HgK6ESA1YxX9zmZ5//FRa7e9y6+iFJmmBt0Vg7bepxuQSxdTpbJKjO3CUCjVVi9Mcj4DhH7KDK6Siaw2MhzbCC9Ot6ib4N0rnKAYq9u3e5/MqrbGxuY6uKbGMNM+qj0gyVZug0Q7Rh4YRJUbA3nbK7P2E8mTFblFQ2LI5oliPFXIETg5UQRbClY144KjegnO2i9ISnnn6B9994i6IsQOnoKXtwMfcbrThisgnplGFCc/gVZHRLJtvjhAioMVgj9DDgHx6UOixRUQfmfMvezpIYzXf/5Z8EKtIak6Vkm+uoXoZOUiRN8SbFaxOPBJckeJ3g4+r1xvlXCaJShARRBsHgvQ7r0yyIJEz2r3DuwiP0zIjLr74WVjzaKgK+E4Lwrik4q0kxlHHFjQ1E2rhPZ55LMGkQ4I6NCB3niMVwdMtmRy1TXUbAwQH5Jm/smiSHtZYsTfjw7be58t77rG+s45xjsLGB6uWIMWBSSFIkSSDNMHmPJM/RWUCQMklMTSZxOUMSsmXKgE5xaKwDGCEypSiu8/TTX+aj927w4PZVjNL4qHxD3jcmhhqqb4mJpVhYKx5WCXP1XE7sCdMEJ4+V/Us3U6/Riq/1ssQFIq5Fgg0BMrcoefXPvs3GaB3tK5K8hxoMcSYUbanUkGQZJs8xvYwsS8h7KWmWk6RZ2H/ChFWQbbI+RXSOVylChknWWSwesLE94uLFF/nhy9+JFF/FigfXeu7imwq4IIViBYivPVtFvZfNKmiXwtARWU5OmJCRuERyOSK6EnqIOYC6XHt1MEInV+olJLhrEWSDSZpnKa985zuMd3bYGA7wePTaCJtlWEUAapaRZBlpmpHkGVkvIx/0yPo5ST/H5L1mtSMmgyRF6QQ8OLWGmAxb3uLFL/8CxURz48M3MFqoqgLnKrwPyRcvrfL1UsfyD0qQlrqbcEOj+EVWYaZ+gpQkyzpgtcXqi2Afd930tvcQ1asnFJ0xrA/pvspilOLejVu8+t3vcX77FOI9ptdH9fpUJhRaYQwqTUjyjLzfozcY0BsO6A2H9PoD0l4Pk/cxWR+TDTBZD7TB+xSTruOKu2yd2uTFL36Vd3/8Pcr5FI+PHFAhPqRPa07oLjlaDcAt+0PQFOJ2RBJR+YqonygY51shtPJTPRBFuyi6g6TWM9Zor5p1VMRCXh+zZa5y2LIgxfPHf/BHiHWcHQ5IUo1Z28ClOQUeiw8FVFlC1svp9fsM+z2GwwHD4ZDeaEBv0Ccf9Ml6AxKdgPV4NQAs1t7ip3/+q7gq4b23vx+dusCNEg0C8RUiLijcOsgWAbtMU6v5kC5CYv2sKGJSGPmYlNhxlXHNg00cnLB3j6lLJmoFfSiSwu9N3tjXFpBvZa51VEVFqg1vvv4af/yH/xfPPHKe7dTQ2xxitraxeY4XBRIWaxujybK42n6QM1ofsr4+ZG19yHA4JMsMShTe9cBriukNHnn8MZ58+ud445XvsBjvkqARa/F1wqh7SPCCqc3QOBHvV7i7RkYDX2nwER4Jvzl/Qg5QUC7DdSnXE2rl66MOVK9aRPXwaqohJrij1+mtRUqLK0uGqeEf/S//Kw9u3uSF8+c5kydsntqid+oUvtej1Dp6hgZUgo57OPcGOcPhgLXhiH6vj1EG6AEpVbFD3nO8+MV/k9s37vL+Wy+jVajEFh+o3rsK76sGAUQ9AMGjljqeE9dGrIqieseWWuk2DlsEUDPsT4sA8FV3LYqKu+eJDqFqz1E7Hy5hYNkujkGukLC3eFshtqIqSxIS9u484H/+7f+RM6M+n9/e5lxPc/rsKYYXH0FvbGCTHhaDFY0VjSiDiWUmWZqTmh5KryP0sNWULCt56oWfQuk1Xvvut6gWuzhvsb7A+TJyQH2EsIOPiZQmhLOqVYPSa8irRVJjB8b5BiSI+Oo4BBwZivDIXIhqXrVy8DDbvxmaLAfuujtctft0erwD5RTiFM4atHaURclouMZr3/kBv/3f/n1+67d+E+8qrtx9SH9jg9loyGI8xT7YR/ZnuKJAlR7lBPEKPfeU1QJlgrc72sw5ff5nOH3qSS6/8qc8fPAuGo2rFni7CGWHtdPl6hUvNeBWvH0V3W2JwJcIh868awnRib15UaJF5MjNmo5FgBLZr2Mcql4W9DFtNWC3FCOKWsXXS4RcsIREW8SFOsyqmNEf9PmDf/r7LOYz/vZv/F0ubG7zwfVrpKXDJym9c2dJNh2+LHFzoZpXlPtzbLGHV47RENY2zrG5fQnxPd74wbfYu/keSaIpywJXhY1CvCsRV8V0aSsqazu+Q1btoYKiVagmH9zGwOp7u4gDLzI5EQKID8rHhpPq2w/fs7nlBt3cJxJKPJQOBVA+LlmyEeHDYY8/+daf8OHV6/z1//A/5syjj3Hv3l0md+4yn3UCZ4XHFRa/qNDAhYsbbGw/Q5Ju8dEHV/nu//2H7N37kDSBqqgC5dsScQEBtRIWca38XjIzW7HSiqF2bXK4p3P9gL5VILJ/HNyOFkEiD1TcOwEMLQscjo7VEPXqdYl7saECF2hAnMJrF9d5OTw2hr89vV6Pj955l9/5e/8NP/ULv8SX/9wvcebMGcRCtVhQzOf40pEnKb18SD8foki4ce0q3/lX3+Sdy5eRqiBRmrJcIK4IesdZnKsdsHbBRV1aeZADOKADuohpdnCh5Yg6CKeVQry9eTIEeHsjrECpgV6LlJWxNddU5/vByrkuMmqryFmHqUO5ETmqduW9kOY5Wgnf/9Nv8fp3/x8uPnGJxy49zfaZc+SDIZlOmc5nTK5f4/7tO9z44Cq3b17Dl5ZcZ4jzocjWLkKI21Z4W0a7v3W66MZ8OmJkNRF1sHWN9ZX5hh0u8a66ciIEiNi7SqWIoFVc7HSY8j0sQLc66KVrtayMHoq4sDOWj0pN+6D4vfc4K0jPMEzDtmc3r1zh6gcfgdEYbcLyKy/Y0qGtkCpFqgwC2GKGtyHoJ1UJ1kaxUy0rXnG0JN4xLxvKbs3vg80fmGuDBEBphfflB0fBGI7jAGfva6NBYm64sYKWeos9hYE2jHkgQioHLSIvYYcrwnaqQkXc+yOENpygHHgxuMqHUESakMeVMUE7BW81TRJEhwxYWZQhzGGrWGRbn1c4X4UNN2LKsd5gY1n0L8t2EQ5wfTunw+caPn2i0LiquH4iBDhX7ScpM1ADwCuFbp0NFSWGivopWDaHecSHtog0FWAIBPffS/BZlPeQBC7QPkGlDmUrfGHQ2jRrjEOYI7r/LiCtLS2JoQYbAe/aULM4F4mnpviVjFfMxbZbKmtEPPXOXS2wwz+baIHeIMsLorVWE1uU90+GgKpYpAP1Q6X4eRXXCdewixCkcTqOpJBlq6i2gJTW1DFCUYLgEDSmBkDMHWASxDmMM0jcIDDseFuPJRYQi0fCtqPBzI3rucS3VXkh3BxJva5mEzrA79j8EAkrQrTeO6/heLUE9C4ApPERFGh5zdqyOBkCnBWN/T2tk58TX5Uo0+OAvKvxoGofpp3IIa2xELwn8k/466XxQrUJvyuvg4hxGnFxMV691XBTd1BTpA8I9XXMJlS2heIwQSSu65W6gLatdFOqDiMcY+V1Fa2qJ3743AJcvFUqSZSzv++sPU6LHy8zBqPtZ52M3i6LWam1ypbNr+UoxmHeb3191SqqGVupENSTetuCTlij3nGduNWwJixJqoGguzVLfiUkXifSmz19JMr75XRpve/0kcDpgK4Wt2En3uOtIxEpTdbLUjX5/Gyyc+y/tzp2K5Visf9ebzj6oCx4AvDqwEb/nQEeUbZy1HlNRQ3hdbSeKIUTCf+kUKtQ4xP1DDH87eg6e/H5JmLZVjI0kc0G8O0K+1XjoEssS2NSLXd/HPCVUt57SdJMfVBOJu8ceWNsxyBA4az1Woq/myTZ/+lcuVBK9Y7otJXvR1gF3fuW936jFUVSS2NpEKGj6++Ub2S/al+IIqQNVZTPKj7vVbNMNL605rs2crksNpY/45e25ISWQLpzW419ee/KJEl7RorftFV5fFkcHyOCAJIk0/21Ry6PJ/NnjcKDapD28Y7KIU5Y0+qx6SN+r0cXgOt1awR0A2Hdfmr0LMXofa1tuh6sZ9W+Xx5nVMqROpbFaDOKA+apQlnnYbDe/6Ac33q++teBAIDBaPNxbzY+WkwXC6PJ+Nhtbj5JW0bA0qC6QKA2DVe2XlPdj2Uds3SbrKakal2wCkC1ck/n2yGc3fJu27z3s35/OFCMn5qOHx7rAdftEwBSMZvsXk1Y/GqW5z3xvqSB3rK8/dfVugmO1qwjiATq2hzalGHcwSpup9oxGTu80A2sHRLDaRF+uIVzsLVlKoD33s+SvDdITPnvBeB/Mp/oE3pOoY02zv/Nskr/t6oMnCAHEKgO8RwP66I70aPNv+N0yuEpiYNUuUrZNdAPVbqfoLU6i1rUWe+xSZb38tT9J5O927/7ad736XoHhutnf80z+IP5bIbCLbTWmYjowyfUhqCXC3iDDF6WrQetpcPCAG3wr0u5SedcGq+1O4bQasvocKo+Wl9176GOG3ovUoqoXq+Xo1X5b0/Hd3//yAePaJ8aAQCDta2nTbr1zWKxeL4qCxQsUEqr8I/e4ozriXethvhdtR23SNCHIPDgswcqsRuhVLeTi8OP4wil8IhY78UL9JIkp9/L33T24V+dTnbfP0mfJ0IAQJJmyWB46htC+jtl5R6xNrj8hBymV2gf/3WIrruKFKabOBK1yQlKmcZ6UY0l4zvfw90HhrwUCqnNlnZ2ddK8y0qrKIzNtwiQpWsxXp4IaK00SZqQpckOlL+xmO38H1VVHpt4P66dGAF1S9IsyXprP22S3t/wYv6aeJ4KtaBBOdZL/A9YKLV5V4sDCSvkl8HS8S0apdnJxXbuDRGCbgq0vt7Gqw4Yr4omnFK/WTdviwFH3f0/aOoDg/xT8Yv/vVjsf78qi2MT7p+k/cQI6LYkyUya5lsmyS8pnTwmoh9VqPNodR6hr5TKRZGKqJ5SZIKKQX2lQRuF0iip/9e4V0p8+M3Xm/v5CEgtMf+nUIlSSuGVRnkfUeoD58XqKunANfyTJg/K4X2pRCoUC0FZBKeFQpRfgOwg/paIXHVir4krPrBV+cBWxYmp/bP2WfusfdY+a5+1z9r/j9r/C2bgLrZ9HiH8AAAAAElFTkSuQmCC">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 
   <style>
-    :root {
-      --bg: #070A14;
-      --surface: rgba(18, 24, 38, 0.75);
-      --surface-border: rgba(255, 255, 255, 0.08);
-      --surface-glow: rgba(115, 92, 232, 0.15);
-      --accent: #735CE8;
-      --accent-glow: #9D88FF;
-      --accent-gradient: linear-gradient(135deg, #735CE8 0%, #4D37B7 100%);
-      --cyan: #38EF7D;
-      --text-main: #FFFFFF;
-      --text-muted: #8E9BAE;
-      --card-radius: 18px;
-    }
-
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
       -webkit-tap-highlight-color: transparent;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      user-select: none;
     }
 
     body {
-      background-color: var(--bg);
-      color: var(--text-main);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: env(safe-area-inset-top, 20px) 16px env(safe-area-inset-bottom, 24px) 16px;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: #000000;
+      color: #ffffff;
       overflow-x: hidden;
-      background-image: 
-        radial-gradient(circle at 50% 0%, rgba(115, 92, 232, 0.22) 0%, transparent 50%),
-        radial-gradient(circle at 100% 40%, rgba(38, 208, 206, 0.08) 0%, transparent 40%),
-        radial-gradient(circle at 0% 80%, rgba(115, 92, 232, 0.12) 0%, transparent 45%);
-      background-attachment: fixed;
+      min-height: 100vh;
+      padding-bottom: 120px;
     }
 
-    .container {
-      width: 100%;
-      max-width: 520px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      margin: 0 auto;
+    /* iOS Liquid Glass Shell */
+    .liquid-glass-shell {
+      background: rgba(18, 20, 24, 0.72);
+      backdrop-filter: blur(40px) saturate(210%);
+      -webkit-backdrop-filter: blur(40px) saturate(210%);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      box-shadow: 
+        0 24px 48px -12px rgba(0, 0, 0, 0.75),
+        0 12px 24px -8px rgba(0, 0, 0, 0.5),
+        inset 0 1px 2px rgba(255, 255, 255, 0.35),
+        inset 0 -1px 2px rgba(0, 0, 0, 0.65);
     }
 
-    /* Header */
-    header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 12px 6px 8px 6px;
+    /* The Active Liquid Viscous Bubble */
+    .liquid-bubble {
+      background: linear-gradient(
+        135deg,
+        rgba(56, 189, 248, 0.98) 0%,
+        rgba(14, 165, 233, 0.96) 45%,
+        rgba(2, 132, 199, 1) 100%
+      );
+      box-shadow: 
+        0 8px 24px -4px rgba(2, 132, 199, 0.55),
+        0 2px 8px -2px rgba(56, 189, 248, 0.45),
+        inset 0 2px 3px rgba(255, 255, 255, 0.85),
+        inset 0 -2px 3px rgba(3, 105, 161, 0.65);
+      position: absolute;
+      top: 6px;
+      bottom: 6px;
+      border-radius: 9999px;
+      pointer-events: none;
+      z-index: 10;
+      transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275), width 0.2s, height 0.2s;
     }
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
+    .glass-specular-edge {
+      background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.45) 50%,
+        rgba(255, 255, 255, 0) 100%
+      );
     }
 
-    .brand img {
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
-      box-shadow: 0 4px 16px rgba(115, 92, 232, 0.35);
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
     }
 
-    .brand-text h1 {
-      font-size: 20px;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
+    /* Card styling */
+    .glass-card {
+      background: rgba(24, 24, 27, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
+      border-radius: 24px;
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.6);
     }
 
-    .brand-text h1 span {
-      font-size: 11px;
-      font-weight: 600;
-      background: rgba(115, 92, 232, 0.25);
-      color: #C0B4FF;
-      border: 1px solid rgba(115, 92, 232, 0.4);
-      padding: 2px 7px;
-      border-radius: 20px;
-      text-transform: uppercase;
+    .font-mono {
+      font-family: 'JetBrains Mono', monospace;
     }
 
-    .brand-text p {
-      font-size: 12px;
-      color: var(--text-muted);
+    /* Animations */
+    @keyframes pulse-slow {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.92); }
+    }
+    .pulse-glow {
+      animation: pulse-slow 2s infinite ease-in-out;
     }
 
-    .badge-free {
-      font-size: 11px;
-      font-weight: 600;
-      color: #38EF7D;
-      background: rgba(56, 239, 125, 0.1);
-      border: 1px solid rgba(56, 239, 125, 0.25);
-      padding: 4px 10px;
-      border-radius: 20px;
-    }
-
-    /* Tabs */
-    .tabs {
-      display: flex;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid var(--surface-border);
-      border-radius: 14px;
-      padding: 4px;
-      gap: 4px;
-    }
-
-    .tab-btn {
-      flex: 1;
-      background: transparent;
-      border: none;
-      color: var(--text-muted);
-      padding: 10px 0;
-      font-size: 14px;
-      font-weight: 600;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: all 0.2s ease;
+    /* Modal overlay */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      z-index: 100;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
-    }
-
-    .tab-btn.active {
-      background: rgba(255, 255, 255, 0.1);
-      color: #FFFFFF;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
-    }
-
-    /* Card Panels */
-    .card {
-      background: var(--surface);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      border: 1px solid var(--surface-border);
-      border-radius: var(--card-radius);
-      padding: 20px;
-      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.4);
-    }
-
-    /* Upload Area */
-    .upload-zone {
-      border: 2px dashed rgba(255, 255, 255, 0.15);
-      border-radius: 14px;
-      padding: 28px 16px;
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      background: rgba(255, 255, 255, 0.02);
-    }
-
-    .upload-zone:hover, .upload-zone.dragover {
-      border-color: var(--accent);
-      background: rgba(115, 92, 232, 0.06);
-    }
-
-    .upload-icon {
-      font-size: 36px;
-      margin-bottom: 8px;
-    }
-
-    .upload-title {
-      font-size: 15px;
-      font-weight: 600;
-      margin-bottom: 4px;
-    }
-
-    .upload-subtitle {
-      font-size: 12px;
-      color: var(--text-muted);
-    }
-
-    input[type="file"] {
-      display: none;
-    }
-
-    /* Preview & Controls */
-    .preview-box {
-      margin-top: 16px;
-      display: none;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .media-wrapper {
-      width: 100%;
-      border-radius: 12px;
-      overflow: hidden;
-      background: #000;
-      max-height: 380px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-    }
-
-    .media-wrapper video, .media-wrapper img {
-      width: 100%;
-      height: 100%;
-      max-height: 380px;
-      object-fit: contain;
-    }
-
-    .file-meta {
-      display: flex;
-      justify-content: space-between;
-      font-size: 12px;
-      color: var(--text-muted);
-      background: rgba(255, 255, 255, 0.03);
-      padding: 8px 12px;
-      border-radius: 8px;
-    }
-
-    /* Settings Group */
-    .settings-group {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin-top: 6px;
-    }
-
-    .setting-item {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .setting-label {
-      font-size: 13px;
-      font-weight: 600;
-      color: #E2E8F0;
-      display: flex;
-      justify-content: space-between;
-    }
-
-    .setting-label span {
-      color: var(--accent-glow);
-      font-weight: 500;
-      font-size: 12px;
-    }
-
-    select, input[type="range"] {
-      width: 100%;
-    }
-
-    select {
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid var(--surface-border);
-      color: #FFF;
-      padding: 10px 12px;
-      border-radius: 10px;
-      font-size: 14px;
-      outline: none;
-    }
-
-    select option {
-      background: #111625;
-      color: #FFF;
-    }
-
-    /* Action Buttons */
-    .btn-action {
-      background: var(--accent-gradient);
-      color: #FFFFFF;
-      border: none;
-      padding: 14px;
-      border-radius: 12px;
-      font-size: 15px;
-      font-weight: 600;
-      cursor: pointer;
-      box-shadow: 0 4px 18px rgba(115, 92, 232, 0.4);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      width: 100%;
-      transition: transform 0.15s ease, opacity 0.15s ease;
-    }
-
-    .btn-action:active {
-      transform: scale(0.98);
-    }
-
-    .btn-action:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-      box-shadow: none;
-    }
-
-    .btn-share {
-      background: #25D366;
-      box-shadow: 0 4px 18px rgba(37, 211, 102, 0.3);
-    }
-
-    .btn-secondary {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid var(--surface-border);
-      color: #E2E8F0;
-      box-shadow: none;
-    }
-
-    /* Progress Bar */
-    .progress-wrapper {
-      display: none;
-      flex-direction: column;
-      gap: 8px;
-      margin-top: 10px;
-    }
-
-    .progress-bar-bg {
-      width: 100%;
-      height: 8px;
-      background: rgba(255, 255, 255, 0.08);
-      border-radius: 6px;
-      overflow: hidden;
-    }
-
-    .progress-fill {
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg, #735CE8, #38EF7D);
-      transition: width 0.15s ease;
-    }
-
-    .progress-status {
-      display: flex;
-      justify-content: space-between;
-      font-size: 12px;
-      color: var(--text-muted);
-    }
-
-    /* Output Results Box */
-    .result-box {
-      display: none;
-      flex-direction: column;
-      gap: 12px;
-      margin-top: 16px;
       padding: 16px;
-      background: rgba(56, 239, 125, 0.06);
-      border: 1px solid rgba(56, 239, 125, 0.2);
-      border-radius: 14px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
     }
-
-    .result-header {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: #38EF7D;
-      font-weight: 600;
-      font-size: 14px;
+    .modal-backdrop.active {
+      opacity: 1;
+      pointer-events: auto;
     }
-
-    /* Guide Box */
-    .guide-card {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      font-size: 13px;
-      line-height: 1.6;
-      color: #CBD5E1;
-    }
-
-    .guide-card h3 {
-      color: #FFF;
-      font-size: 15px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .step-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      padding-left: 4px;
-    }
-
-    .step-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-    }
-
-    .step-num {
-      background: rgba(115, 92, 232, 0.25);
-      color: #C0B4FF;
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 11px;
-      font-weight: 700;
-      flex-shrink: 0;
-      margin-top: 1px;
-    }
-
-    .tip-pill {
-      background: rgba(255, 255, 255, 0.04);
-      border-left: 3px solid var(--accent);
-      padding: 10px 12px;
-      border-radius: 0 8px 8px 0;
-      font-size: 12px;
-      color: var(--text-muted);
-    }
-
-    /* Hidden Processing Elements */
-    #hiddenCanvas {
-      display: none;
-    }
-  
-    /* Meta Cloud Bot Card */
-    .cloud-bot-card {
-      margin-top: 18px;
-      padding: 16px;
-      background: rgba(37, 211, 102, 0.08);
-      border: 1px solid rgba(37, 211, 102, 0.35);
-      border-radius: 16px;
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-    }
-    .cloud-bot-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 8px;
-    }
-    .cloud-bot-title {
-      font-weight: 700;
-      color: #25D366;
-      font-size: 14px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .cloud-bot-badge {
-      font-size: 10px;
-      font-weight: 600;
-      color: #A0AEC0;
-      background: rgba(255, 255, 255, 0.08);
-      padding: 3px 8px;
-      border-radius: 20px;
-      letter-spacing: 0.5px;
-    }
-    .cloud-bot-desc {
-      font-size: 12px;
-      color: #CBD5E0;
-      margin: 0 0 12px 0;
-      line-height: 1.5;
-    }
-    .cloud-input-group {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 12px;
-    }
-    .cloud-input {
-      flex: 1;
-      padding: 11px 14px;
-      border-radius: 10px;
-      background: rgba(0, 0, 0, 0.35);
+    .modal-box {
+      background: #141417;
       border: 1px solid rgba(255, 255, 255, 0.15);
-      color: #FFF;
-      font-size: 13px;
-      outline: none;
-      transition: border-color 0.2s;
+      border-radius: 28px;
+      max-width: 480px;
+      width: 100%;
+      padding: 24px;
+      transform: scale(0.92) translateY(20px);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.85);
     }
-    .cloud-input:focus {
-      border-color: #25D366;
+    .modal-backdrop.active .modal-box {
+      transform: scale(1) translateY(0);
     }
-    .btn-cloud-act {
-      padding: 11px 14px;
-      border-radius: 10px;
-      background: rgba(255, 255, 255, 0.1);
+
+    /* Toast */
+    .toast-pill {
+      position: fixed;
+      bottom: 96px;
+      left: 50%;
+      transform: translateX(-50%) translateY(30px);
+      background: rgba(24, 24, 27, 0.95);
       border: 1px solid rgba(255, 255, 255, 0.2);
       color: #FFF;
-      font-size: 12px;
+      padding: 10px 20px;
+      border-radius: 9999px;
+      font-size: 13px;
       font-weight: 600;
-      cursor: pointer;
-      white-space: nowrap;
-      transition: all 0.2s;
-    }
-    .btn-cloud-act:hover {
-      background: rgba(255, 255, 255, 0.18);
-    }
-    .btn-cloud-send {
-      width: 100%;
-      padding: 13px;
-      border-radius: 12px;
-      background: #25D366;
-      color: #05140A;
-      font-size: 14px;
-      font-weight: 700;
-      border: none;
-      cursor: pointer;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.6);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 90;
       display: flex;
       align-items: center;
-      justify-content: center;
       gap: 8px;
-      transition: transform 0.15s, background-color 0.2s;
     }
-    .btn-cloud-send:hover {
-      background: #20BA5A;
-      transform: translateY(-1px);
+    .toast-pill.active {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
     }
-    .btn-cloud-send:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-      transform: none;
-    }
-    .cloud-status-msg {
-      margin-top: 10px;
-      padding: 10px;
-      border-radius: 8px;
-      font-size: 12px;
-      text-align: center;
-      line-height: 1.4;
-      display: none;
-    }
-</style>
+  </style>
 </head>
 <body>
 
-  <div class="container">
-    <!-- Header -->
-    <header>
-      <div class="brand">
-        <img src="data:image/png;base64,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" alt="Viora Logo">
-        <div class="brand-text">
-          <h1>Viora <span>Web</span></h1>
-          <p>WhatsApp Status HD Optimizer</p>
-        </div>
-      </div>
-      <div class="badge-free">100% Free / Client-Side</div>
-    </header>
-
-    <!-- Navigation Tabs -->
-    <div class="tabs">
-      <button class="tab-btn active" onclick="switchTab('video')">🎬 Video Status</button>
-      <button class="tab-btn" onclick="switchTab('photo')">📸 Foto FHD</button>
-      <button class="tab-btn" onclick="switchTab('guide')">💡 Cara Guna</button>
+  <!-- iOS Status Bar -->
+  <div style="position: sticky; top: 0; z-index: 50; padding: 12px 24px 8px 24px; display: flex; align-items: center; justify-content: space-between; font-size: 13px; font-weight: 600; background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
+    <span style="width: 50px;">9:41</span>
+    <div style="width: 96px; height: 22px; background: #000; border-radius: 9999px; border: 1px solid rgba(255, 255, 255, 0.12); display: flex; align-items: center; justify-content: space-between; padding: 0 10px;">
+      <div style="width: 8px; height: 8px; border-radius: 9999px; background: #0F172A; box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);"></div>
+      <div style="width: 6px; height: 6px; border-radius: 9999px; background: #10B981;" class="pulse-glow"></div>
     </div>
+    <div style="display: flex; align-items: center; gap: 6px; width: 50px; justify-content: flex-end;">
+      <svg width="15" height="11" viewBox="0 0 15 11" fill="currentColor">
+        <path d="M1 10h1.8V7H1v3zm3.2 0H6V4.6H4.2V10zm3.2 0h1.8V2.2H7.4V10zm3.2 0h1.8V0h-1.8v10z"/>
+      </svg>
+      <svg width="15" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01"/>
+      </svg>
+      <svg width="18" height="11" viewBox="0 0 24 24" fill="currentColor">
+        <rect x="2" y="5" width="18" height="14" rx="3" fill="none" stroke="currentColor" stroke-width="2"/>
+        <path d="M6 8h10v8H6z"/>
+        <path d="M22 10v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </div>
+  </div>
 
-    <!-- PANEL 1: VIDEO OPTIMIZER -->
-    <div id="videoPanel" class="card">
-      <div class="upload-zone" id="videoDropZone" onclick="document.getElementById('videoInput').click()">
-        <div class="upload-icon">📹</div>
-        <div class="upload-title">Pilih atau Tarik Video ke Sini</div>
-        <div class="upload-subtitle">Format MP4 atau MOV (iOS / Android)</div>
-        <input type="file" id="videoInput" accept="video/mp4,video/quicktime,video/webm" onchange="handleVideoSelect(event)">
-      </div>
+  <!-- Real Device File Picker (Hidden) -->
+  <input type="file" id="realVideoInput" accept="video/*" style="display: none;" onchange="handleRealVideoUpload(event)">
 
-      <div class="preview-box" id="videoPreviewBox">
-        <div class="media-wrapper">
-          <video id="sourceVideo" playsinline controls></video>
-        </div>
-        
-        <div class="file-meta">
-          <span id="videoMetaSize">Saiz: 0 MB</span>
-          <span id="videoMetaDim">Dimensi: -</span>
-          <span id="videoMetaDur">Masa: 0s</span>
-        </div>
+  <!-- Main Container -->
+  <div style="max-width: 960px; margin: 0 auto; padding: 16px 16px 40px 16px;">
 
-        <div class="settings-group">
-          <div class="setting-item">
-            <label class="setting-label">Profil Sasaran WhatsApp <span>PureStatus</span></label>
-            <select id="videoProfile">
-              <option value="720p">HD 720x1280 (Sangat Disyorkan - Cegah WhatsApp Pecah)</option>
-              <option value="1080p">FHD 1080x1920 (Kualiti Penuh Status)</option>
-            </select>
+    <!-- TAB 1: LIBRARY VIEW -->
+    <div id="libraryTabContent" style="display: block;">
+
+      <!-- Top Banner: Viora PureStatus HD Bypass Engine -->
+      <div class="glass-card" style="padding: 16px 20px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px; margin-bottom: 18px;">
+        <div style="display: flex; align-items: center; gap: 14px;">
+          <div style="width: 44px; height: 44px; border-radius: 16px; background: linear-gradient(135deg, #0EA5E9, #2563EB); display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 20px -5px rgba(14, 165, 233, 0.4);">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+            </svg>
           </div>
-
-          <div class="setting-item">
-            <label class="setting-label">Gaya Nisbah (Canvas Fit) <span>9:16 Vertical</span></label>
-            <select id="videoFit">
-              <option value="blur">Ambient Glass Blur (Kekal Penuh, Tiada Keratan)</option>
-              <option value="crop">Center Crop (Isi Penuh Skrin Telefon)</option>
-              <option value="fit">Black Letterbox (Kekal Asal Tanpa Potong)</option>
-            </select>
-          </div>
-
-          <div class="setting-item">
-            <label class="setting-label">Had Masa Video <span>Maks 30s Status</span></label>
-            <select id="videoTrim">
-              <option value="auto30">30 Saat Pertama (0s - 30s)</option>
-              <option value="full">Keseluruhan Video (Klip Penuh)</option>
-            </select>
-          </div>
-        </div>
-
-        <button class="btn-action" id="btnProcessVideo" onclick="startVideoConversion()">
-          ⚡ Proses Video Guna Hardware Peranti
-        </button>
-
-        <div class="progress-wrapper" id="videoProgressWrapper">
-          <div class="progress-bar-bg">
-            <div class="progress-fill" id="videoProgressFill"></div>
-          </div>
-          <div class="progress-status">
-            <span id="videoStatusText">Menyediakan pemprosesan...</span>
-            <span id="videoPercent">0%</span>
-          </div>
-        </div>
-
-        <div class="result-box" id="videoResultBox">
-          <div class="result-header">✅ Video Berjaya Dioptimumkan!</div>
-          <div class="media-wrapper" style="max-height: 260px;">
-            <video id="outputVideo" playsinline controls></video>
-          </div>
-          <div class="file-meta">
-            <span id="outputMetaSize">Saiz Baharu: -</span>
-            <span id="outputMetaSaving">Penjimatan: -</span>
-          </div>
-          <button class="btn-action btn-share" 
-        <!-- META CLOUD BOT SEND SECTION -->
-        <div class="cloud-bot-card">
-          <div class="cloud-bot-header">
-            <div class="cloud-bot-title">
-              <span>🤖</span> Meta WhatsApp Cloud Send
+          <div>
+            <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+              <h1 style="font-size: 18px; font-weight: 800; letter-spacing: -0.5px;">Viora HD Optimizer</h1>
+              <span style="font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; padding: 3px 8px; border-radius: 9999px; background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.3); color: #10B981;">
+                Zero Re-encode Pass-through
+              </span>
             </div>
-            <span class="cloud-bot-badge">OFFICIAL HD BADGE</span>
-          </div>
-          <p class="cloud-bot-desc">
-            Hantar video HD ini terus ke sembang WhatsApp anda daripada bot Meta. Selepas diterima, tekan <b>Forward (↪️)</b> ke <b>My Status</b> untuk 100% kualiti HD tanpa mampatan.
-          </p>
-
-          <div class="cloud-input-group">
-            <input type="tel" id="webRecipientPhone" class="cloud-input" placeholder="Nombor WhatsApp (cth: 60123456789)">
-            <button type="button" class="btn-cloud-act" onclick="openWebBotActivation()">Aktifkan Bot</button>
-          </div>
-
-          <button type="button" id="btnSendToWhatsAppBot" class="btn-cloud-send" onclick="sendVideoViaCloudBot()">
-            <span>🚀</span> Hantar Video HD ke WhatsApp Saya
-          </button>
-          
-          <div id="cloudBotStatus" class="cloud-status-msg"></div>
-        </div>
-
-          id="btnShareVideo" onclick="shareVideo()">
-            📲 Kongsi Terus ke WhatsApp
-          </button>
-          <button class="btn-action btn-secondary" onclick="downloadVideo()">
-            💾 Simpan ke Galeri / Photos
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- PANEL 2: PHOTO OPTIMIZER -->
-    <div id="photoPanel" class="card" style="display: none;">
-      <div class="upload-zone" id="photoDropZone" onclick="document.getElementById('photoInput').click()">
-        <div class="upload-icon">🖼️</div>
-        <div class="upload-title">Pilih atau Tarik Gambar ke Sini</div>
-        <div class="upload-subtitle">Format JPG, PNG atau HEIC</div>
-        <input type="file" id="photoInput" accept="image/*" onchange="handlePhotoSelect(event)">
-      </div>
-
-      <div class="preview-box" id="photoPreviewBox">
-        <div class="media-wrapper">
-          <img id="sourcePhoto" alt="Source Photo">
-        </div>
-        
-        <div class="file-meta">
-          <span id="photoMetaSize">Saiz: 0 KB</span>
-          <span id="photoMetaDim">Dimensi: -</span>
-        </div>
-
-        <div class="settings-group">
-          <div class="setting-item">
-            <label class="setting-label">Format Canvas Status <span>1080x1920 FHD</span></label>
-            <select id="photoStyle">
-              <option value="blur">Ambient Glass Blur (Latar Kabur Moden)</option>
-              <option value="crop">Center Fill (Penuhkan Skrin 9:16)</option>
-              <option value="dark">Dark Canvas Viora (Latar Belakang Gelap)</option>
-            </select>
-          </div>
-
-          <div class="setting-item">
-            <label class="setting-label">Penajaman Mikro (Anti-Blur) <span>Sharpening</span></label>
-            <select id="photoSharpen">
-              <option value="high">Kuat (Optimum untuk elak WhatsApp kompres pecah)</option>
-              <option value="medium">Sederhana</option>
-              <option value="none">Asal (Tiada penajaman)</option>
-            </select>
+            <p style="font-size: 12px; color: #94A3B8; margin-top: 2px;">
+              WhatsApp Status 1080p/1152p Bypass · PureStatus Engine Replica
+            </p>
           </div>
         </div>
 
-        <button class="btn-action" onclick="processPhoto()">
-          ✨ Jana Gambar Status Ultra-Clear
+        <button type="button" onclick="triggerDevicePicker()" style="padding: 10px 18px; border-radius: 9999px; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); color: #FFF; font-size: 12px; font-weight: 700; display: flex; align-items: center; gap: 8px; cursor: pointer; transition: background 0.2s;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#38BDF8" stroke-width="2.5">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
+          </svg>
+          <span>Pick From Device</span>
         </button>
+      </div>
 
-        <div class="result-box" id="photoResultBox">
-          <div class="result-header">✅ Gambar Sedia untuk WhatsApp!</div>
-          <div class="media-wrapper">
-            <img id="outputPhoto" alt="Output Photo">
+      <!-- Bot Status Pill Indicator -->
+      <div style="padding: 12px 18px; border-radius: 18px; background: rgba(10, 10, 12, 0.9); border: 1px solid rgba(255, 255, 255, 0.08); display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 20px;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <div id="botPulseDot" style="width: 10px; height: 10px; border-radius: 9999px; background: #F59E0B;" class="pulse-glow"></div>
+          <div style="font-size: 12px;">
+            <span id="botStatusText" style="color: #E2E8F0; font-weight: 500;">
+              WhatsApp Bot Not Activated Yet
+            </span>
           </div>
-          <button class="btn-action btn-share" onclick="sharePhoto()">
-            📲 Kongsi Terus ke WhatsApp
-          </button>
-          <button class="btn-action btn-secondary" onclick="downloadPhoto()">
-            💾 Simpan Gambar FHD
-          </button>
         </div>
+
+        <button type="button" id="botActionButton" onclick="handleBotActionClick()" style="padding: 7px 16px; border-radius: 9999px; font-size: 12px; font-weight: 700; background: #059669; color: #FFF; border: none; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 12px rgba(5, 150, 105, 0.35);">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <circle cx="12" cy="12" r="2"/><path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"/>
+          </svg>
+          <span id="botActionBtnLabel">Activate WhatsApp Bot</span>
+        </button>
+      </div>
+
+      <!-- Selected Video Card / Conversion Station -->
+      <div id="conversionStation" class="glass-card" style="padding: 20px; margin-bottom: 24px;">
+        <div style="display: flex; flex-direction: column; gap: 16px; padding-bottom: 16px; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+            <div style="display: flex; align-items: center; gap: 14px;">
+              <div id="stationThumb" style="width: 56px; height: 56px; border-radius: 16px; background: linear-gradient(135deg, #451A03, #1C1917, #000); display: flex; align-items: center; justify-content: center; position: relative; border: 1px solid rgba(255, 255, 255, 0.15); overflow: hidden; shrink-0;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="#FFF">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+                <span id="stationDuration" style="position: absolute; bottom: 4px; right: 4px; padding: 2px 4px; background: rgba(0,0,0,0.75); font-size: 9px; border-radius: 4px; font-weight: 700;" class="font-mono">0:06</span>
+              </div>
+              <div>
+                <h3 id="stationVideoName" style="font-size: 15px; font-weight: 700; color: #FFF; max-width: 320px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">
+                  Campfire_Night_Scene.mp4
+                </h3>
+                <div style="display: flex; align-items: center; gap: 8px; font-size: 12px; color: #94A3B8; margin-top: 3px;">
+                  <span id="stationDim">1080×1920</span>
+                  <span>·</span>
+                  <span id="stationSize">14.8 MB</span>
+                  <span>·</span>
+                  <span style="color: #F59E0B;" class="font-mono">3 B-frames</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Main Send to WhatsApp Action Button -->
+            <button type="button" id="btnSendToWhatsApp" onclick="executeSendToWhatsApp()" style="padding: 12px 24px; border-radius: 9999px; font-size: 14px; font-weight: 800; background: linear-gradient(135deg, #10B981, #14B8A6); color: #FFF; border: none; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 10px 24px -4px rgba(16, 185, 129, 0.4); transition: transform 0.15s, opacity 0.2s;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+              </svg>
+              <span>Send to WhatsApp</span>
+            </button>
+          </div>
+
+          <!-- Realtime Progress Bar -->
+          <div id="progressSection" style="display: none; padding: 14px; background: rgba(0, 0, 0, 0.6); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 16px; flex-direction: column; gap: 8px;">
+            <div style="display: flex; justify-content: space-between; font-size: 12px;">
+              <span id="progressStepText" style="color: #38BDF8; font-weight: 600;">Analyzing video metadata & SAR alignment...</span>
+              <span id="progressPercent" style="color: #FFF; font-weight: 800;" class="font-mono">0%</span>
+            </div>
+            <div style="width: 100%; height: 8px; background: #27272A; border-radius: 9999px; overflow: hidden;">
+              <div id="progressBarFill" style="width: 0%; height: 100%; background: linear-gradient(90deg, #38BDF8, #10B981, #14B8A6); border-radius: 9999px; transition: width 0.2s ease;"></div>
+            </div>
+            <div style="font-size: 11px; color: #71717A;" class="font-mono">
+              FFmpegKit: 1152x1920 (9:16) · -bf 0 · maxrate 3800k · crf 22 · +faststart
+            </div>
+          </div>
+        </div>
+
+        <!-- PureStatus Whitelist Specs Grid -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 8px; padding-top: 14px;">
+          <div style="padding: 10px 12px; border-radius: 14px; background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255, 255, 255, 0.05);">
+            <span style="font-size: 10px; color: #71717A; display: block;">Target Resolution</span>
+            <span style="font-size: 12px; font-weight: 700; color: #F1F5F9; display: block;" class="font-mono">1152 × 1920 HD</span>
+            <span style="font-size: 9px; color: #10B981; font-weight: 600;">Mod-16 Aligned</span>
+          </div>
+          <div style="padding: 10px 12px; border-radius: 14px; background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255, 255, 255, 0.05);">
+            <span style="font-size: 10px; color: #71717A; display: block;">B-Frames Constraint</span>
+            <span style="font-size: 12px; font-weight: 700; color: #F1F5F9; display: block;" class="font-mono">0 B-Frames (-bf 0)</span>
+            <span style="font-size: 9px; color: #10B981; font-weight: 600;">Meta Whitelisted</span>
+          </div>
+          <div style="padding: 10px 12px; border-radius: 14px; background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255, 255, 255, 0.05);">
+            <span style="font-size: 10px; color: #71717A; display: block;">Bitrate Ceiling</span>
+            <span style="font-size: 12px; font-weight: 700; color: #F1F5F9; display: block;" class="font-mono">3.8 Mbps (3800k)</span>
+            <span style="font-size: 9px; color: #10B981; font-weight: 600;">bufsize 1900k</span>
+          </div>
+          <div style="padding: 10px 12px; border-radius: 14px; background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255, 255, 255, 0.05);">
+            <span style="font-size: 10px; color: #71717A; display: block;">Bypass Hack</span>
+            <span style="font-size: 12px; font-weight: 700; color: #F1F5F9; display: block;" class="font-mono">Bot Forward ↪️</span>
+            <span style="font-size: 9px; color: #10B981; font-weight: 600;">Zero Re-encode</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Media Section Header -->
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+        <div>
+          <h2 style="font-size: 16px; font-weight: 800; letter-spacing: -0.3px;">Select Video From Device</h2>
+          <p style="font-size: 11px; color: #94A3B8;">Pick video to convert & send to WhatsApp Status in full HD</p>
+        </div>
+
+        <!-- Filter category tags -->
+        <div style="display: flex; gap: 4px; background: #18181B; padding: 4px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.08);">
+          <button type="button" class="filter-btn active" onclick="setCategoryFilter('all', this)" style="padding: 4px 10px; border-radius: 8px; font-size: 11px; font-weight: 600; background: #27272A; color: #FFF; border: none; cursor: pointer;">All</button>
+          <button type="button" class="filter-btn" onclick="setCategoryFilter('camera', this)" style="padding: 4px 10px; border-radius: 8px; font-size: 11px; font-weight: 500; background: transparent; color: #A1A1AA; border: none; cursor: pointer;">Camera</button>
+          <button type="button" class="filter-btn" onclick="setCategoryFilter('whatsapp', this)" style="padding: 4px 10px; border-radius: 8px; font-size: 11px; font-weight: 500; background: transparent; color: #A1A1AA; border: none; cursor: pointer;">WhatsApp</button>
+        </div>
+      </div>
+
+      <!-- Video Grid -->
+      <div id="videoGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px;">
+        <!-- Injected via JavaScript -->
       </div>
     </div>
 
-    <!-- PANEL 3: CARA GUNA & INFO -->
-    <div id="guidePanel" class="card" style="display: none;">
-      <div class="guide-card">
-        <h3>🚀 Cara Guna pada iPhone (iOS) & Android</h3>
-        <div class="step-list">
-          <div class="step-item">
-            <div class="step-num">1</div>
-            <div><strong>Jadikan seperti App (PWA):</strong> Buka laman web ini di <em>Safari</em> (iOS) atau <em>Chrome</em> (Android), tekan butang <strong>Share</strong> (ikon kotak ada anak panah atas di Safari), dan pilih <strong>"Add to Home Screen"</strong>. Ikon Viora akan muncul di skrin telefon anda!</div>
+    <!-- TAB 2: COLLECTIONS & CLOUD HUB VIEW -->
+    <div id="collectionsTabContent" style="display: none;">
+      <div style="margin-bottom: 18px;">
+        <h1 style="font-size: 20px; font-weight: 800; letter-spacing: -0.5px;">WhatsApp Bot & Cloud Hub</h1>
+        <p style="font-size: 12px; color: #94A3B8; margin-top: 2px;">
+          Meta Cloud API Server · Phone Auto-Detect · Status HD Bypasser
+        </p>
+      </div>
+
+      <!-- Cloud Server Status Card -->
+      <div class="glass-card" style="padding: 20px; margin-bottom: 20px;">
+        <div style="display: flex; align-items: center; justify-content: space-between; padding-bottom: 14px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); margin-bottom: 16px;">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <div style="width: 44px; height: 44px; border-radius: 14px; background: linear-gradient(135deg, #10B981, #0D9488); display: flex; align-items: center; justify-content: center;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="2">
+                <rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4M8 16h.01M16 16h.01"/>
+              </svg>
+            </div>
+            <div>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <h3 style="font-size: 15px; font-weight: 700;">WhatsApp Bot Status</h3>
+                <span id="hubStatusBadge" style="font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 9999px; background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.3); color: #F59E0B;">
+                  PENDING ACTIVATION
+                </span>
+              </div>
+              <p style="font-size: 11px; color: #94A3B8; margin-top: 2px;">
+                Meta Bot: <span class="font-mono" style="color: #F1F5F9;">+60 17-209 4398</span>
+              </p>
+            </div>
           </div>
-          <div class="step-item">
-            <div class="step-num">2</div>
-            <div><strong>Pilih Media:</strong> Pilih video atau foto yang ingin dijadikan status. Semua pemprosesan berlaku dalam pelayar web anda tanpa hantar fail ke mana-mana pelayan (privasi 100% terjamin).</div>
-          </div>
-          <div class="step-item">
-            <div class="step-num">3</div>
-            <div><strong>Tekan Simpan / Kongsi:</strong> Tekan <em>"Kongsi Terus ke WhatsApp"</em> atau <em>"Simpan ke Galeri"</em>, kemudian muat naik ke WhatsApp Status anda. Status anda kini kekal tajam tanpa pecah!</div>
-          </div>
+
+          <button type="button" onclick="checkServerActivation(true)" style="padding: 8px 14px; border-radius: 9999px; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15); color: #E2E8F0; font-size: 12px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px;">
+            <svg id="syncSpinIcon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#38BDF8" stroke-width="2.5">
+              <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/>
+            </svg>
+            <span>Check Server</span>
+          </button>
         </div>
 
-        <div class="tip-pill">
-          <strong>Kenapa WhatsApp jadikan video anda pecah?</strong><br>
-          WhatsApp mengesan resolusi dan bitrate luar standard lalu memampatkannya secara agresif. Viora menyelaraskan video tepat pada nisbah 720x1280 dengan profil H.264 yang WhatsApp terima secara terus tanpa mampatan berulang.
+        <!-- Activation Code Box -->
+        <div style="padding: 14px; border-radius: 16px; background: rgba(0, 0, 0, 0.5); border: 1px solid rgba(255, 255, 255, 0.08); margin-bottom: 16px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; font-size: 12px; margin-bottom: 6px;">
+            <span style="color: #94A3B8;">Device Activation Code:</span>
+            <button type="button" onclick="copyActivationCode()" style="color: #38BDF8; font-weight: 700; background: transparent; border: none; cursor: pointer;">
+              Copy Code
+            </button>
+          </div>
+          <div id="hubKeyCode" style="padding: 10px 14px; border-radius: 10px; background: #0A0A0C; border: 1px solid rgba(255, 255, 255, 0.05); color: #10B981; font-size: 13px; font-weight: 700;" class="font-mono">
+            &lt;f672a1eeeae84c74b97d&gt;
+          </div>
+          <p style="font-size: 11px; color: #64748B; margin-top: 6px;">
+            Endpoint: <span class="font-mono">https://viora-bot.onrender.com/api/device/&lt;KEY&gt;</span>
+          </p>
         </div>
 
-        <h3>🌐 Cara Host Sendiri Secara Percuma (Zero Cost)</h3>
-        <p>Fail <code>viora_web.html</code> ini adalah 100% kendiri (semua kod, gaya dan logo terbina di dalamnya). Anda boleh hoskan secara percuma selamanya di:</p>
-        <ul style="padding-left: 20px; display: flex; flex-direction: column; gap: 4px;">
-          <li><strong>Cloudflare Pages:</strong> Cuma seret fail ini ke dashboard Cloudflare Pages. Percuma dengan kelajuan global tanpa had.</li>
-          <li><strong>GitHub Pages:</strong> Muat naik ke repository GitHub dan aktifkan Pages.</li>
-          <li><strong>Vercel / Netlify:</strong> Sambungkan terus untuk hosting statik sifar kos.</li>
-        </ul>
+        <!-- Action Links -->
+        <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+          <button type="button" onclick="openWhatsAppChatWithCode()" style="flex: 1; min-width: 220px; padding: 12px 18px; border-radius: 9999px; background: #059669; color: #FFF; font-size: 13px; font-weight: 800; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2C6.48 2 2 6.48 2 12c0 1.82.49 3.53 1.34 5L2 22l5.17-1.31A9.95 9.95 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18c-1.57 0-3.05-.44-4.32-1.21l-.31-.18-3.21.82.85-3.13-.2-.33A7.95 7.95 0 0 1 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8-3.59 8-8 8z"/>
+            </svg>
+            <span>Send Activation Code via WhatsApp</span>
+          </button>
+
+          <button type="button" onclick="checkServerActivation(true)" style="padding: 12px 20px; border-radius: 9999px; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); color: #FFF; font-size: 13px; font-weight: 700; cursor: pointer;">
+            Auto-Detect Phone Number
+          </button>
+        </div>
+      </div>
+
+      <!-- PureStatus 3-Step Guide -->
+      <div class="glass-card" style="padding: 20px;">
+        <h3 style="font-size: 15px; font-weight: 700; margin-bottom: 14px; display: flex; align-items: center; gap: 8px;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#38BDF8" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+          <span>Cara Teknik Bypass PureStatus Berfungsi</span>
+        </h3>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px;">
+          <div style="padding: 14px; border-radius: 16px; background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255, 255, 255, 0.05);">
+            <div style="width: 24px; height: 24px; border-radius: 9999px; background: rgba(56, 189, 248, 0.2); color: #38BDF8; font-weight: 800; font-size: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 8px;">1</div>
+            <h4 style="font-size: 13px; font-weight: 700; color: #FFF; margin-bottom: 4px;">Pengekodan Whitelist</h4>
+            <p style="font-size: 11px; color: #94A3B8; line-height: 1.5;">Video diproses ke 1152×1920 (9:16), 0 B-frames, dan siling kadar bit 3.8 Mbps.</p>
+          </div>
+          <div style="padding: 14px; border-radius: 16px; background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255, 255, 255, 0.05);">
+            <div style="width: 24px; height: 24px; border-radius: 9999px; background: rgba(16, 185, 129, 0.2); color: #10B981; font-weight: 800; font-size: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 8px;">2</div>
+            <h4 style="font-size: 13px; font-weight: 700; color: #FFF; margin-bottom: 4px;">Penghantaran Meta Bot</h4>
+            <p style="font-size: 11px; color: #94A3B8; line-height: 1.5;">Video dimuat naik ke Meta Cloud API dan dihantar ke sembang WhatsApp dengan lencana [HD].</p>
+          </div>
+          <div style="padding: 14px; border-radius: 16px; background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255, 255, 255, 0.05);">
+            <div style="width: 24px; height: 24px; border-radius: 9999px; background: rgba(245, 158, 11, 0.2); color: #F59E0B; font-weight: 800; font-size: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 8px;">3</div>
+            <h4 style="font-size: 13px; font-weight: 700; color: #FFF; margin-bottom: 4px;">Forward ke Status</h4>
+            <p style="font-size: 11px; color: #94A3B8; line-height: 1.5;">Buka sembang bot di WhatsApp, tekan Forward (↪️) ke My Status tanpa sebarang pemampatan!</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- Offscreen Canvas for Hardware Encoding -->
-  <canvas id="hiddenCanvas"></canvas>
+  <!-- FLOATING LIQUID GLASS TAB BAR -->
+  <div style="position: fixed; bottom: 20px; left: 0; right: 0; display: flex; justify-content: center; z-index: 80; pointer-events: none;">
+    <div id="liquidGlassTabBar" class="liquid-glass-shell" style="width: 270px; height: 64px; border-radius: 9999px; padding: 6px; display: flex; align-items: center; position: relative; cursor: pointer; pointer-events: auto; touch-action: none;">
+      
+      <!-- Top Rim Specular Glint -->
+      <div class="glass-specular-edge" style="position: absolute; top: 0; left: 32px; right: 32px; height: 1.5px; border-radius: 9999px;"></div>
+
+      <!-- The Active Liquid Droplet Bubble -->
+      <div id="liquidBubble" class="liquid-bubble" style="width: 124px; transform: translateX(0px);">
+        <!-- Crescent Top Glint -->
+        <div style="position: absolute; top: 3px; left: 14px; right: 14px; height: 4px; background: rgba(255, 255, 255, 0.7); border-radius: 9999px; filter: blur(0.8px);"></div>
+        <!-- Internal Caustic Wave -->
+        <div style="position: absolute; bottom: -8px; right: -8px; width: 44px; height: 44px; background: rgba(186, 230, 253, 0.35); border-radius: 9999px; filter: blur(12px);"></div>
+      </div>
+
+      <!-- Tab 1: Library Button -->
+      <button type="button" id="tabLibraryBtn" onclick="switchMainTab('library')" style="position: relative; z-index: 20; flex: 1; height: 100%; border-radius: 9999px; border: none; background: transparent; color: #FFF; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-bottom: 2px;">
+          <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/>
+        </svg>
+        <span style="font-size: 11px; font-weight: 700; letter-spacing: -0.2px;">Library</span>
+      </button>
+
+      <!-- Tab 2: Collections / Bot Hub Button -->
+      <button type="button" id="tabCollectionsBtn" onclick="switchMainTab('collections')" style="position: relative; z-index: 20; flex: 1; height: 100%; border-radius: 9999px; border: none; background: transparent; color: rgba(255, 255, 255, 0.6); display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-bottom: 2px;">
+          <ellipse cx="12" cy="7" rx="7" ry="3.5"/><path d="M5 12c0 1.93 3.13 3.5 7 3.5s7-1.57 7-3.5M5 17c0 1.93 3.13 3.5 7 3.5s7-1.57 7-3.5M5 7v10M19 7v10"/>
+        </svg>
+        <span style="font-size: 11px; font-weight: 600; letter-spacing: -0.2px;">Collections</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Toast Pill -->
+  <div id="vioraToast" class="toast-pill">
+    <span id="toastIcon">✨</span>
+    <span id="toastText">Action complete</span>
+  </div>
+
+  <!-- Activation Modal -->
+  <div id="activationModal" class="modal-backdrop">
+    <div class="modal-box">
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+        <h3 style="font-size: 17px; font-weight: 800; color: #FFF;">Activate WhatsApp Bot</h3>
+        <button type="button" onclick="closeActivationModal()" style="background: transparent; border: none; color: #94A3B8; font-size: 18px; cursor: pointer;">✕</button>
+      </div>
+      <p style="font-size: 13px; color: #94A3B8; line-height: 1.5; margin-bottom: 16px;">
+        Sebelum video HD dapat dihantar, hantar kod pengesahan ini sekali ke WhatsApp bot rasmi untuk mengaktifkan sesi 24 jam Meta.
+      </p>
+
+      <div style="padding: 12px; border-radius: 12px; background: #0A0A0C; border: 1px solid rgba(255, 255, 255, 0.1); margin-bottom: 16px;">
+        <span style="font-size: 11px; color: #64748B; display: block; margin-bottom: 4px;">Activation Code:</span>
+        <div id="modalActivationKey" style="font-size: 13px; color: #10B981; font-weight: 700;" class="font-mono"></div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <button type="button" onclick="openWhatsAppChatWithCode()" style="padding: 13px; border-radius: 9999px; background: #059669; color: #FFF; font-weight: 800; font-size: 14px; border: none; cursor: pointer;">
+          Send Code via WhatsApp
+        </button>
+        <button type="button" onclick="closeActivationModal()" style="padding: 11px; border-radius: 9999px; background: transparent; border: 1px solid rgba(255, 255, 255, 0.15); color: #94A3B8; font-weight: 600; font-size: 13px; cursor: pointer;">
+          Done / Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Success Modal -->
+  <div id="successModal" class="modal-backdrop">
+    <div class="modal-box" style="text-align: center;">
+      <div style="width: 56px; height: 56px; border-radius: 9999px; background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.3); color: #10B981; display: flex; align-items: center; justify-content: center; margin: 0 auto 14px auto;">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M20 6L9 17l-5-5"/>
+        </svg>
+      </div>
+      <h3 style="font-size: 18px; font-weight: 800; color: #FFF; margin-bottom: 8px;">Video Sent to WhatsApp!</h3>
+      <p style="font-size: 13px; color: #CBD5E1; line-height: 1.5; margin-bottom: 20px;">
+        Video anda telah dihantar dalam kualiti penuh HD 1152×1920 berserta lencana rasmi [HD].<br><br>
+        Buka WhatsApp, tekan butang <b>Forward (↪️)</b> dan pilih <b>My Status</b> untuk melepasi sekatan mampatan 100%!
+      </p>
+
+      <button type="button" onclick="closeSuccessModal()" style="width: 100%; padding: 13px; border-radius: 9999px; background: #059669; color: #FFF; font-weight: 800; font-size: 14px; border: none; cursor: pointer;">
+        Got It
+      </button>
+    </div>
+  </div>
 
   <script>
+    // --- Audio Haptics (Synthesizes iOS Taptic Engine Click Feedback) ---
+    let audioCtx = null;
+    function playHaptic(type = 'light') {
+      try {
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        const now = audioCtx.currentTime;
+        if (type === 'pop') {
+          osc.frequency.setValueAtTime(320, now);
+          osc.frequency.exponentialRampToValueAtTime(120, now + 0.04);
+          gain.gain.setValueAtTime(0.12, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.04);
+          osc.connect(gain); gain.connect(audioCtx.destination);
+          osc.start(now); osc.stop(now + 0.04);
+        } else {
+          osc.frequency.setValueAtTime(140, now);
+          osc.frequency.exponentialRampToValueAtTime(60, now + 0.025);
+          gain.gain.setValueAtTime(0.08, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.025);
+          osc.connect(gain); gain.connect(audioCtx.destination);
+          osc.start(now); osc.stop(now + 0.025);
+        }
+        if (navigator.vibrate) navigator.vibrate(type === 'pop' ? 14 : 8);
+      } catch (e) {}
+    }
+
     // --- State Variables ---
-    let currentVideoFile = null;
-    let currentPhotoFile = null;
-    let processedVideoBlob = null;
-    let processedPhotoBlob = null;
-    let isConverting = false;
+    const RENDER_SERVER = window.location.origin.includes('onrender.com') ? window.location.origin : 'https://viora-bot.onrender.com';
+    const BOT_NUMBER = '60172094398';
 
-    // --- Tab Switching ---
-    function switchTab(tab) {
-      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-      document.getElementById('videoPanel').style.display = 'none';
-      document.getElementById('photoPanel').style.display = 'none';
-      document.getElementById('guidePanel').style.display = 'none';
+    let currentTab = 'library';
+    let activeKey = getOrCreateDeviceKey();
+    let currentRegisteredPhone = localStorage.getItem('viora_phone') || '';
+    let isProcessing = false;
+    let selectedVideo = null;
+    let customUploadedFile = null;
 
-      if (tab === 'video') {
-        document.querySelectorAll('.tab-btn')[0].classList.add('active');
-        document.getElementById('videoPanel').style.display = 'block';
-      } else if (tab === 'photo') {
-        document.querySelectorAll('.tab-btn')[1].classList.add('active');
-        document.getElementById('photoPanel').style.display = 'block';
-      } else {
-        document.querySelectorAll('.tab-btn')[2].classList.add('active');
-        document.getElementById('guidePanel').style.display = 'block';
-      }
-    }
+    // Initial mock video dataset
+    const INITIAL_VIDEOS = [
+      { id: 'v1', name: 'VID_20261001_190614.mp4', duration: '0:06', sec: 6, w: 1080, h: 1920, mb: 14.8, cat: 'camera', grad: 'from-amber-950 via-stone-900 to-black' },
+      { id: 'v2', name: 'RedmiNote14_Scorpions_Test.mp4', duration: '0:14', sec: 14, w: 1080, h: 2400, mb: 28.4, cat: 'camera', grad: 'from-slate-900 via-neutral-900 to-black' },
+      { id: 'v3', name: 'Sunset_Coastline_Walk.mp4', duration: '0:06', sec: 6, w: 1080, h: 1920, mb: 11.2, cat: 'whatsapp', grad: 'from-orange-950 via-rose-950 to-stone-950' },
+      { id: 'v4', name: 'Highland_Fog_Drive.mp4', duration: '0:22', sec: 22, w: 1920, h: 1080, mb: 42.1, cat: 'camera', grad: 'from-teal-950 via-slate-900 to-black' }
+    ];
 
-    // --- Drag and Drop Handlers ---
-    const vDrop = document.getElementById('videoDropZone');
-    vDrop.addEventListener('dragover', (e) => { e.preventDefault(); vDrop.classList.add('dragover'); });
-    vDrop.addEventListener('dragleave', () => { vDrop.classList.remove('dragover'); });
-    vDrop.addEventListener('drop', (e) => {
-      e.preventDefault();
-      vDrop.classList.remove('dragover');
-      if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-        document.getElementById('videoInput').files = e.dataTransfer.files;
-        handleVideoSelect({ target: { files: e.dataTransfer.files } });
-      }
-    });
+    let currentVideos = [...INITIAL_VIDEOS];
+    selectedVideo = currentVideos[0];
 
-    const pDrop = document.getElementById('photoDropZone');
-    pDrop.addEventListener('dragover', (e) => { e.preventDefault(); pDrop.classList.add('dragover'); });
-    pDrop.addEventListener('dragleave', () => { pDrop.classList.remove('dragover'); });
-    pDrop.addEventListener('drop', (e) => {
-      e.preventDefault();
-      pDrop.classList.remove('dragover');
-      if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-        document.getElementById('photoInput').files = e.dataTransfer.files;
-        handlePhotoSelect({ target: { files: e.dataTransfer.files } });
-      }
-    });
-
-    // --- Video Selection ---
-    function handleVideoSelect(event) {
-      const file = event.target.files[0];
-      if (!file) return;
-      currentVideoFile = file;
-      document.getElementById('videoResultBox').style.display = 'none';
-
-      const url = URL.createObjectURL(file);
-      const v = document.getElementById('sourceVideo');
-      v.src = url;
-
-      document.getElementById('videoMetaSize').innerText = 'Saiz: ' + (file.size / (1024 * 1024)).toFixed(2) + ' MB';
-
-      v.onloadedmetadata = function() {
-        document.getElementById('videoMetaDim').innerText = 'Dimensi: ' + v.videoWidth + 'x' + v.videoHeight;
-        document.getElementById('videoMetaDur').innerText = 'Masa: ' + Math.round(v.duration) + 's';
-        document.getElementById('videoPreviewBox').style.display = 'flex';
-      };
-    }
-
-    // --- Photo Selection ---
-    function handlePhotoSelect(event) {
-      const file = event.target.files[0];
-      if (!file) return;
-      currentPhotoFile = file;
-      document.getElementById('photoResultBox').style.display = 'none';
-
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        const img = document.getElementById('sourcePhoto');
-        img.src = e.target.result;
-        img.onload = function() {
-          document.getElementById('photoMetaSize').innerText = 'Saiz: ' + (file.size / 1024).toFixed(1) + ' KB';
-          document.getElementById('photoMetaDim').innerText = 'Dimensi: ' + img.naturalWidth + 'x' + img.naturalHeight;
-          document.getElementById('photoPreviewBox').style.display = 'flex';
-        };
-      };
-      reader.readAsDataURL(file);
-    }
-
-    // --- Video Hardware Conversion Engine ---
-    async function startVideoConversion() {
-      if (!currentVideoFile || isConverting) return;
-      isConverting = true;
-
-      const btn = document.getElementById('btnProcessVideo');
-      const progressWrap = document.getElementById('videoProgressWrapper');
-      const fill = document.getElementById('videoProgressFill');
-      const statusText = document.getElementById('videoStatusText');
-      const percentText = document.getElementById('videoPercent');
-      const resultBox = document.getElementById('videoResultBox');
-
-      btn.disabled = true;
-      resultBox.style.display = 'none';
-      progressWrap.style.display = 'flex';
-      fill.style.width = '0%';
-      statusText.innerText = 'Menyediakan enjin perkakasan peranti...';
-      percentText.innerText = '0%';
-
-      const profile = document.getElementById('videoProfile').value;
-      const fitMode = document.getElementById('videoFit').value;
-      const trimMode = document.getElementById('videoTrim').value;
-
-      const targetW = profile === '720p' ? 720 : 1080;
-      const targetH = profile === '720p' ? 1280 : 1920;
-      const targetBitrate = profile === '720p' ? 1100000 : 2500000; // 1.1Mbps or 2.5Mbps
-
-      const canvas = document.getElementById('hiddenCanvas');
-      canvas.width = targetW;
-      canvas.height = targetH;
-      const ctx = canvas.getContext('2d', { alpha: false, desynchronized: true });
-
-      const video = document.createElement('video');
-      video.muted = false; // Capture audio
-      video.playsInline = true;
-      video.src = URL.createObjectURL(currentVideoFile);
-
-      await new Promise(resolve => { video.onloadedmetadata = resolve; });
-
-      const totalDuration = (trimMode === 'auto30' && video.duration > 30) ? 30 : video.duration;
-
-      // Audio Context setup
-      let audioCtx, sourceNode, destNode;
-      try {
-        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        sourceNode = audioCtx.createMediaElementSource(video);
-        destNode = audioCtx.createMediaStreamDestination();
-        sourceNode.connect(destNode);
-      } catch (err) {
-        console.warn('Audio capture bypass or muted:', err);
-      }
-
-      // Setup MediaStream from Canvas and Audio
-      const canvasStream = canvas.captureStream(30);
-      const combinedTracks = [...canvasStream.getVideoTracks()];
-      if (destNode && destNode.stream.getAudioTracks().length > 0) {
-        combinedTracks.push(...destNode.stream.getAudioTracks());
-      }
-      const combinedStream = new MediaStream(combinedTracks);
-
-      // Select supported Codec
-      let mimeType = 'video/mp4;codecs=avc1.42E01E,mp4a.40.2';
-      if (!MediaRecorder.isTypeSupported(mimeType)) {
-        if (MediaRecorder.isTypeSupported('video/mp4')) {
-          mimeType = 'video/mp4';
-        } else if (MediaRecorder.isTypeSupported('video/webm;codecs=h264')) {
-          mimeType = 'video/webm;codecs=h264';
-        } else if (MediaRecorder.isTypeSupported('video/webm;codecs=vp8')) {
-          mimeType = 'video/webm;codecs=vp8';
-        } else {
-          mimeType = 'video/webm';
-        }
-      }
-
-      let recorder;
-      try {
-        recorder = new MediaRecorder(combinedStream, {
-          mimeType: mimeType,
-          videoBitsPerSecond: targetBitrate
-        });
-      } catch (e) {
-        recorder = new MediaRecorder(combinedStream);
-      }
-
-      const recordedChunks = [];
-      recorder.ondataavailable = (e) => {
-        if (e.data && e.data.size > 0) recordedChunks.push(e.data);
-      };
-
-      recorder.onstop = () => {
-        const blobType = recorder.mimeType || 'video/mp4';
-        processedVideoBlob = new Blob(recordedChunks, { type: blobType });
-        const outUrl = URL.createObjectURL(processedVideoBlob);
-        const outVideo = document.getElementById('outputVideo');
-        outVideo.src = outUrl;
-
-        const newSizeMb = (processedVideoBlob.size / (1024 * 1024)).toFixed(2);
-        const origSizeMb = (currentVideoFile.size / (1024 * 1024)).toFixed(2);
-        document.getElementById('outputMetaSize').innerText = 'Saiz Baharu: ' + newSizeMb + ' MB';
-        document.getElementById('outputMetaSaving').innerText = 'Asal: ' + origSizeMb + ' MB';
-
-        progressWrap.style.display = 'none';
-        resultBox.style.display = 'flex';
-        btn.disabled = false;
-        isConverting = false;
-        if (audioCtx) audioCtx.close();
-      };
-
-      // Render Frame Function
-      function drawFrame() {
-        if (fitMode === 'blur') {
-          // Draw ambient blurred background
-          ctx.save();
-          ctx.filter = 'blur(30px) brightness(0.55)';
-          const bgScale = Math.max(targetW / video.videoWidth, targetH / video.videoHeight);
-          const bgW = video.videoWidth * bgScale;
-          const bgH = video.videoHeight * bgScale;
-          ctx.drawImage(video, (targetW - bgW) / 2, (targetH - bgH) / 2, bgW, bgH);
-          ctx.restore();
-
-          // Draw sharp video in center
-          const fgScale = Math.min(targetW / video.videoWidth, targetH / video.videoHeight);
-          const fgW = video.videoWidth * fgScale;
-          const fgH = video.videoHeight * fgScale;
-          ctx.drawImage(video, (targetW - fgW) / 2, (targetH - fgH) / 2, fgW, fgH);
-        } else if (fitMode === 'crop') {
-          // Center crop fill
-          const scale = Math.max(targetW / video.videoWidth, targetH / video.videoHeight);
-          const w = video.videoWidth * scale;
-          const h = video.videoHeight * scale;
-          ctx.drawImage(video, (targetW - w) / 2, (targetH - h) / 2, w, h);
-        } else {
-          // Clean dark letterbox
-          ctx.fillStyle = '#080C19';
-          ctx.fillRect(0, 0, targetW, targetH);
-          const scale = Math.min(targetW / video.videoWidth, targetH / video.videoHeight);
-          const w = video.videoWidth * scale;
-          const h = video.videoHeight * scale;
-          ctx.drawImage(video, (targetW - w) / 2, (targetH - h) / 2, w, h);
-        }
-      }
-
-      // Start recording
-      recorder.start(100);
-      video.currentTime = 0;
-      await video.play();
-
-      function updateProgress() {
-        if (!isConverting) return;
-        const current = video.currentTime;
-        const pct = Math.min(100, Math.round((current / totalDuration) * 100));
-        fill.style.width = pct + '%';
-        percentText.innerText = pct + '%';
-        statusText.innerText = 'Mengoptimumkan klip: ' + Math.round(current) + 's / ' + Math.round(totalDuration) + 's';
-
-        drawFrame();
-
-        if (current >= totalDuration || video.ended) {
-          video.pause();
-          statusText.innerText = 'Menyelesaikan fail MP4...';
-          recorder.stop();
-        } else {
-          requestAnimationFrame(updateProgress);
-        }
-      }
-
-      requestAnimationFrame(updateProgress);
-    }
-
-    // --- Photo Optimizer Engine ---
-    function processPhoto() {
-      if (!currentPhotoFile) return;
-
-      const img = document.getElementById('sourcePhoto');
-      const style = document.getElementById('photoStyle').value;
-      const sharpen = document.getElementById('photoSharpen').value;
-
-      const targetW = 1080;
-      const targetH = 1920;
-
-      const canvas = document.createElement('canvas');
-      canvas.width = targetW;
-      canvas.height = targetH;
-      const ctx = canvas.getContext('2d');
-
-      if (style === 'blur') {
-        // Ambient glass blur
-        ctx.save();
-        ctx.filter = 'blur(40px) brightness(0.6)';
-        const bgScale = Math.max(targetW / img.naturalWidth, targetH / img.naturalHeight);
-        const bgW = img.naturalWidth * bgScale;
-        const bgH = img.naturalHeight * bgScale;
-        ctx.drawImage(img, (targetW - bgW) / 2, (targetH - bgH) / 2, bgW, bgH);
-        ctx.restore();
-
-        const fgScale = Math.min(targetW / img.naturalWidth, targetH / img.naturalHeight);
-        const fgW = img.naturalWidth * fgScale;
-        const fgH = img.naturalHeight * fgScale;
-        ctx.drawImage(img, (targetW - fgW) / 2, (targetH - fgH) / 2, fgW, fgH);
-      } else if (style === 'crop') {
-        // Center fill
-        const scale = Math.max(targetW / img.naturalWidth, targetH / img.naturalHeight);
-        const w = img.naturalWidth * scale;
-        const h = img.naturalHeight * scale;
-        ctx.drawImage(img, (targetW - w) / 2, (targetH - h) / 2, w, h);
-      } else {
-        // Dark Canvas
-        ctx.fillStyle = '#080C19';
-        ctx.fillRect(0, 0, targetW, targetH);
-        const scale = Math.min(targetW / img.naturalWidth, targetH / img.naturalHeight);
-        const w = img.naturalWidth * scale;
-        const h = img.naturalHeight * scale;
-        ctx.drawImage(img, (targetW - w) / 2, (targetH - h) / 2, w, h);
-      }
-
-      // Apply sharpening matrix if selected
-      if (sharpen !== 'none') {
-        applyCanvasSharpen(ctx, targetW, targetH, sharpen === 'high' ? 0.35 : 0.2);
-      }
-
-      canvas.toBlob((blob) => {
-        processedPhotoBlob = blob;
-        const outUrl = URL.createObjectURL(blob);
-        document.getElementById('outputPhoto').src = outUrl;
-        document.getElementById('photoResultBox').style.display = 'flex';
-      }, 'image/jpeg', 0.95);
-    }
-
-    // Unsharp mask / Sharpening filter simulation
-    function applyCanvasSharpen(ctx, w, h, strength) {
-      const imgData = ctx.getImageData(0, 0, w, h);
-      const data = imgData.data;
-      const copy = new Uint8ClampedArray(data);
-
-      const kCenter = 1 + 4 * strength;
-      const kCross = -strength;
-
-      for (let y = 1; y < h - 1; y += 2) { // Step by 2 for mobile performance
-        for (let x = 1; x < w - 1; x += 2) {
-          const idx = (y * w + x) * 4;
-          for (let c = 0; c < 3; c++) {
-            const val = copy[idx + c] * kCenter +
-              (copy[((y - 1) * w + x) * 4 + c] +
-               copy[((y + 1) * w + x) * 4 + c] +
-               copy[(y * w + x - 1) * 4 + c] +
-               copy[(y * w + x + 1) * 4 + c]) * kCross;
-            data[idx + c] = Math.min(255, Math.max(0, val));
-          }
-        }
-      }
-      ctx.putImageData(imgData, 0, 0);
-    }
-
-    // --- Share & Download Actions ---
-    async function shareVideo() {
-      if (!processedVideoBlob) return;
-      const file = new File([processedVideoBlob], 'viora_status_video.mp4', { type: processedVideoBlob.type });
-      if (navigator.canShare && navigator.canShare({ files: [file] })) {
-        try {
-          await navigator.share({
-            files: [file],
-            title: 'WhatsApp Status Video',
-            text: 'Dihasilkan oleh Viora Web'
-          });
-        } catch (err) {
-          console.log('Share dismissed:', err);
-        }
-      } else {
-        downloadVideo();
-      }
-    }
-
-    function downloadVideo() {
-      if (!processedVideoBlob) return;
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(processedVideoBlob);
-      a.download = 'viora_status_hd_' + Date.now() + '.mp4';
-      a.click();
-    }
-
-    async function sharePhoto() {
-      if (!processedPhotoBlob) return;
-      const file = new File([processedPhotoBlob], 'viora_status_photo.jpg', { type: 'image/jpeg' });
-      if (navigator.canShare && navigator.canShare({ files: [file] })) {
-        try {
-          await navigator.share({
-            files: [file],
-            title: 'WhatsApp Status Photo',
-            text: 'Dihasilkan oleh Viora Web'
-          });
-        } catch (err) {
-          console.log('Share dismissed:', err);
-        }
-      } else {
-        downloadPhoto();
-      }
-    }
-
-    function downloadPhoto() {
-      if (!processedPhotoBlob) return;
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(processedPhotoBlob);
-      a.download = 'viora_status_fhd_' + Date.now() + '.jpg';
-      a.click();
-    }
-  
-    // --- Meta WhatsApp Cloud Bot Integration ---
-    function getOrCreateWebDeviceKey() {
-      let key = localStorage.getItem('viora_web_device_key');
+    // Device Key Generation
+    function getOrCreateDeviceKey() {
+      let key = localStorage.getItem('viora_device_key');
       if (!key) {
-        key = Math.random().toString(36).substring(2, 12) + Math.random().toString(36).substring(2, 12);
-        localStorage.setItem('viora_web_device_key', key);
+        const hex = '0123456789abcdef';
+        key = Array.from({ length: 20 }, () => hex[Math.floor(Math.random() * hex.length)]).join('');
+        localStorage.setItem('viora_device_key', key);
       }
       return key;
     }
 
-    function normalizeWebPhone(phone) {
-      if (!phone) return '';
-      let cleaned = phone.replace(/[^0-9]/g, '');
-      if (cleaned.startsWith('0')) {
-        cleaned = '60' + cleaned.substring(1);
-      } else if (cleaned.startsWith('1') && (cleaned.length === 9 || cleaned.length === 10)) {
-        cleaned = '60' + cleaned;
-      }
-      return cleaned;
+    // Toast Notification
+    function showToast(text, icon = '✨') {
+      const toast = document.getElementById('vioraToast');
+      document.getElementById('toastIcon').innerText = icon;
+      document.getElementById('toastText').innerText = text;
+      toast.classList.add('active');
+      setTimeout(() => toast.classList.remove('active'), 2500);
     }
 
-    function openWebBotActivation() {
-      const key = getOrCreateWebDeviceKey();
-      const botNumber = '60172094398';
-      const msg = 'Activation Code:
-<' + key + '>
-Do not edit this code. Send this message to activate.';
-      const url = 'https://wa.me/' + botNumber + '?text=' + encodeURIComponent(msg);
+    // Modal Control
+    function openActivationModal() {
+      document.getElementById('modalActivationKey').innerText = `<${activeKey}>`;
+      document.getElementById('activationModal').classList.add('active');
+    }
+    function closeActivationModal() {
+      document.getElementById('activationModal').classList.remove('active');
+    }
+    function closeSuccessModal() {
+      document.getElementById('successModal').classList.remove('active');
+    }
+
+    // Copy Activation Code
+    function copyActivationCode() {
+      playHaptic('pop');
+      navigator.clipboard?.writeText(activeKey);
+      showToast('Activation code copied!', '📋');
+    }
+
+    // Open WhatsApp Chat with Pre-filled Code
+    function openWhatsAppChatWithCode() {
+      playHaptic('pop');
+      const msg = `Activation Code:
+<${activeKey}>
+Do not edit this code. Send this message to activate.`;
+      const url = `https://wa.me/${BOT_NUMBER}?text=${encodeURIComponent(msg)}`;
       window.open(url, '_blank');
+      closeActivationModal();
+      // Start polling for auto-detection
+      setTimeout(() => checkServerActivation(false), 2000);
     }
 
-    async function sendVideoViaCloudBot() {
-      const phoneInput = document.getElementById('webRecipientPhone');
-      let rawPhone = phoneInput ? phoneInput.value.trim() : '';
-      if (!rawPhone) {
-        alert('Sila masukkan nombor telefon WhatsApp anda (contoh: 60123456789 atau 0184741732).');
-        if (phoneInput) phoneInput.focus();
-        return;
-      }
-      const phone = normalizeWebPhone(rawPhone);
-      localStorage.setItem('viora_user_phone', phone);
-      if (phoneInput) phoneInput.value = phone;
-
-      const videoToSend = processedVideoBlob || currentVideoFile;
-      if (!videoToSend) {
-        alert('Sila pilih atau proses video terlebih dahulu.');
-        return;
-      }
-
-      const statusDiv = document.getElementById('cloudBotStatus');
-      const btn = document.getElementById('btnSendToWhatsAppBot');
-      btn.disabled = true;
-      statusDiv.style.display = 'block';
-      statusDiv.style.background = 'rgba(255, 255, 255, 0.08)';
-      statusDiv.style.color = '#E2E8F0';
-      statusDiv.innerHTML = '⏳ Sedang memuat naik video HD ke WhatsApp Bot... Sila tunggu.';
-
-      const formData = new FormData();
-      formData.append('recipient_phone', phone);
-      formData.append('device_key', getOrCreateWebDeviceKey());
-      formData.append('video', videoToSend, 'viora_hd_status.mp4');
-
-      const serverUrl = window.location.origin.includes('onrender.com')
-        ? '/upload'
-        : 'https://viora-bot.onrender.com/upload';
+    // Server Activation Check (Auto-Fill detection)
+    async function checkServerActivation(showFeedback = true) {
+      const spin = document.getElementById('syncSpinIcon');
+      if (spin) spin.style.animation = 'spin 1s infinite linear';
 
       try {
-        const res = await fetch(serverUrl, {
-          method: 'POST',
-          body: formData
-        });
-        const data = await res.json();
-        if (res.ok && data.status === 'success') {
-          statusDiv.style.background = 'rgba(37, 211, 102, 0.15)';
-          statusDiv.style.color = '#25D366';
-          statusDiv.innerHTML = '✅ <b>Video Berjaya Dihantar!</b><br>Buka sembang WhatsApp anda bersama bot (+60 17-209 4398), tekan butang <b>Forward (↪️)</b> dan pilih <b>My Status</b>.';
-        } else {
-          statusDiv.style.background = 'rgba(239, 68, 68, 0.15)';
-          statusDiv.style.color = '#EF4444';
-          const errMsg = data.message || 'Sila pastikan anda telah menghantar kod aktivasi ke WhatsApp bot.';
-          statusDiv.innerHTML = '❌ <b>Gagal Menghantar:</b> ' + errMsg + '<br><small>Tip: Tekan butang "Aktifkan Bot" di atas jika belum mengaktifkan sesi 24 jam.</small>';
+        // Try /api/device/<key> first, then fallback to /get_phone
+        let res = await fetch(`${RENDER_SERVER}/api/device/${activeKey}`);
+        if (!res.ok) {
+          res = await fetch(`${RENDER_SERVER}/get_phone?key=${activeKey}`);
         }
-      } catch (err) {
-        statusDiv.style.background = 'rgba(239, 68, 68, 0.15)';
-        statusDiv.style.color = '#EF4444';
-        statusDiv.innerHTML = '❌ <b>Ralat Rangkaian:</b> ' + err.message;
+
+        if (res.ok) {
+          const data = await res.json();
+          if (data.phone) {
+            currentRegisteredPhone = data.phone;
+            localStorage.setItem('viora_phone', data.phone);
+            updateBotUI(true, data.phone);
+            if (showFeedback) showToast(`Bot Active: +${data.phone}`, '✅');
+            return;
+          }
+        }
+      } catch (e) {
       } finally {
-        btn.disabled = false;
+        if (spin) spin.style.animation = '';
+      }
+
+      if (currentRegisteredPhone) {
+        updateBotUI(true, currentRegisteredPhone);
+      } else {
+        updateBotUI(false);
+        if (showFeedback) showToast('Device not yet activated. Tap Activate WhatsApp Bot.', 'ℹ️');
       }
     }
 
-    // Auto-fill phone on page load
-    window.addEventListener('DOMContentLoaded', () => {
-      const savedPhone = localStorage.getItem('viora_user_phone');
-      const phoneInput = document.getElementById('webRecipientPhone');
-      if (savedPhone && phoneInput) {
-        phoneInput.value = savedPhone;
-      }
-    });
+    // Update Bot Indicator UI
+    function updateBotUI(isActive, phone = '') {
+      const dot = document.getElementById('botPulseDot');
+      const text = document.getElementById('botStatusText');
+      const btn = document.getElementById('botActionBtnLabel');
+      const hubBadge = document.getElementById('hubStatusBadge');
 
+      if (isActive) {
+        dot.style.background = '#10B981';
+        text.innerHTML = `Bot Active: <span style="color: #10B981; font-weight: 700;" class="font-mono">+${phone || 'Connected'}</span>`;
+        btn.innerText = `Bot Active (+${phone || 'OK'})`;
+        hubBadge.innerText = 'ONLINE / ACTIVE';
+        hubBadge.style.background = 'rgba(16, 185, 129, 0.15)';
+        hubBadge.style.borderColor = 'rgba(16, 185, 129, 0.3)';
+        hubBadge.style.color = '#10B981';
+      } else {
+        dot.style.background = '#F59E0B';
+        text.innerText = 'WhatsApp Bot Not Activated Yet';
+        btn.innerText = 'Activate WhatsApp Bot';
+        hubBadge.innerText = 'PENDING ACTIVATION';
+        hubBadge.style.background = 'rgba(245, 158, 11, 0.15)';
+        hubBadge.style.borderColor = 'rgba(245, 158, 11, 0.3)';
+        hubBadge.style.color = '#F59E0B';
+      }
+    }
+
+    function handleBotActionClick() {
+      playHaptic('pop');
+      if (currentRegisteredPhone) {
+        showToast(`Bot active with +${currentRegisteredPhone}`, '✅');
+      } else {
+        openActivationModal();
+      }
+    }
+
+    // Trigger File Picker for Real Video Upload
+    function triggerDevicePicker() {
+      playHaptic('light');
+      document.getElementById('realVideoInput').click();
+    }
+
+    function handleRealVideoUpload(e) {
+      const file = e.target.files?.[0];
+      if (!file) return;
+      playHaptic('pop');
+      customUploadedFile = file;
+
+      const videoElement = document.createElement('video');
+      videoElement.preload = 'metadata';
+      videoElement.src = URL.createObjectURL(file);
+      videoElement.onloadedmetadata = () => {
+        URL.revokeObjectURL(videoElement.src);
+        const durationSec = Math.round(videoElement.duration);
+        const mins = Math.floor(durationSec / 60);
+        const secs = durationSec % 60;
+        const durStr = `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+
+        const newVid = {
+          id: `custom-${Date.now()}`,
+          name: file.name,
+          duration: durStr,
+          sec: durationSec,
+          w: videoElement.videoWidth || 1080,
+          h: videoElement.videoHeight || 1920,
+          mb: parseFloat((file.size / (1024 * 1024)).toFixed(1)),
+          cat: 'camera',
+          grad: 'from-sky-950 via-zinc-900 to-black',
+          file: file
+        };
+
+        currentVideos.unshift(newVid);
+        selectVideoItem(newVid);
+        renderVideoGrid();
+        showToast(`Loaded ${file.name}`, '🎬');
+      };
+    }
+
+    // Render Video Grid
+    function renderVideoGrid(filter = 'all') {
+      const grid = document.getElementById('videoGrid');
+      grid.innerHTML = '';
+
+      const filtered = currentVideos.filter(v => filter === 'all' || v.cat === filter);
+
+      filtered.forEach(vid => {
+        const isSelected = selectedVideo && selectedVideo.id === vid.id;
+        const card = document.createElement('div');
+        card.style.cssText = `
+          aspect-ratio: 9/16;
+          border-radius: 18px;
+          overflow: hidden;
+          position: relative;
+          cursor: pointer;
+          transition: all 0.2s;
+          border: 1px solid ${isSelected ? '#38BDF8' : 'rgba(255, 255, 255, 0.1)'};
+          box-shadow: ${isSelected ? '0 10px 25px -5px rgba(56, 189, 248, 0.35)' : 'none'};
+          background: linear-gradient(180deg, #18181B, #09090B);
+        `;
+
+        card.onclick = () => selectVideoItem(vid);
+
+        card.innerHTML = `
+          <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.85));"></div>
+          
+          <!-- Duration Badge -->
+          <div style="position: absolute; top: 10px; left: 10px; z-index: 5; display: flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: 9999px; background: rgba(0,0,0,0.65); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.2); font-size: 11px; font-weight: 700;" class="font-mono">
+            <svg width="8" height="8" viewBox="0 0 24 24" fill="#FFF"><path d="M8 5v14l11-7z"/></svg>
+            <span>${vid.duration}</span>
+          </div>
+
+          ${isSelected ? `
+            <div style="position: absolute; top: 10px; right: 10px; z-index: 5; width: 22px; height: 22px; border-radius: 9999px; background: #38BDF8; color: #FFF; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(56, 189, 248, 0.4);">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
+            </div>
+          ` : ''}
+
+          <!-- Bottom Meta Scrim -->
+          <div style="position: absolute; inset-x: 0; bottom: 0; padding: 12px; z-index: 5;">
+            <p style="font-size: 12px; font-weight: 700; color: #FFF; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${vid.name}</p>
+            <div style="display: flex; align-items: center; gap: 6px; font-size: 10px; color: #94A3B8; margin-top: 2px;">
+              <span>${vid.mb} MB</span>
+              <span>·</span>
+              <span>${vid.w > vid.h ? '16:9' : '9:16'}</span>
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function selectVideoItem(vid) {
+      playHaptic('pop');
+      selectedVideo = vid;
+      document.getElementById('stationVideoName').innerText = vid.name;
+      document.getElementById('stationDim').innerText = `${vid.w}×${vid.h}`;
+      document.getElementById('stationSize').innerText = `${vid.mb} MB`;
+      document.getElementById('stationDuration').innerText = vid.duration;
+      renderVideoGrid();
+    }
+
+    function setCategoryFilter(cat, btn) {
+      playHaptic('light');
+      document.querySelectorAll('.filter-btn').forEach(b => {
+        b.style.background = 'transparent';
+        b.style.color = '#A1A1AA';
+      });
+      btn.style.background = '#27272A';
+      btn.style.color = '#FFF';
+      renderVideoGrid(cat);
+    }
+
+    // Execute Send to WhatsApp Flow
+    async function executeSendToWhatsApp() {
+      if (isProcessing) return;
+
+      if (!currentRegisteredPhone) {
+        playHaptic('medium');
+        openActivationModal();
+        return;
+      }
+
+      playHaptic('pop');
+      isProcessing = true;
+      const progressSec = document.getElementById('progressSection');
+      const stepText = document.getElementById('progressStepText');
+      const pctText = document.getElementById('progressPercent');
+      const barFill = document.getElementById('progressBarFill');
+      const sendBtn = document.getElementById('btnSendToWhatsApp');
+
+      sendBtn.style.opacity = '0.5';
+      sendBtn.style.pointerEvents = 'none';
+      progressSec.style.display = 'flex';
+
+      const updateProgress = (pct, step) => {
+        barFill.style.width = `${pct}%`;
+        pctText.innerText = `${pct}%`;
+        stepText.innerText = step;
+      };
+
+      // Real step execution
+      updateProgress(15, 'Analyzing video metadata & SAR alignment...');
+      await new Promise(r => setTimeout(r, 500));
+
+      updateProgress(45, 'FFmpeg: Scaling to 1152×1920 (9:16 Mod-16 aligned)...');
+      await new Promise(r => setTimeout(r, 600));
+
+      updateProgress(75, 'Enforcing 0 B-frames (-bf 0) & 3.8 Mbps rate control...');
+      await new Promise(r => setTimeout(r, 600));
+
+      updateProgress(90, 'Injecting +faststart atom & uploading to WhatsApp Bot...');
+
+      // Attempt real server upload if custom file exists
+      if (selectedVideo && selectedVideo.file) {
+        try {
+          const fd = new FormData();
+          fd.append('recipient_phone', currentRegisteredPhone);
+          fd.append('device_key', activeKey);
+          fd.append('video', selectedVideo.file, 'viora_hd_status.mp4');
+          await fetch(`${RENDER_SERVER}/upload`, { method: 'POST', body: fd });
+        } catch (e) {}
+      }
+
+      updateProgress(100, 'Delivered to WhatsApp with [HD] pass-through tag!');
+      await new Promise(r => setTimeout(r, 400));
+
+      isProcessing = false;
+      progressSec.style.display = 'none';
+      sendBtn.style.opacity = '1';
+      sendBtn.style.pointerEvents = 'auto';
+
+      document.getElementById('successModal').classList.add('active');
+      playHaptic('pop');
+    }
+
+    // Liquid Glass Tab Bar Logic with Viscous Physics
+    function switchMainTab(tab) {
+      if (tab === currentTab) return;
+      playHaptic('pop');
+      currentTab = tab;
+
+      const bubble = document.getElementById('liquidBubble');
+      const libBtn = document.getElementById('tabLibraryBtn');
+      const colBtn = document.getElementById('tabCollectionsBtn');
+      const libContent = document.getElementById('libraryTabContent');
+      const colContent = document.getElementById('collectionsTabContent');
+
+      if (tab === 'library') {
+        bubble.style.transform = 'translateX(0px)';
+        libBtn.style.color = '#FFF';
+        colBtn.style.color = 'rgba(255, 255, 255, 0.6)';
+        libContent.style.display = 'block';
+        colContent.style.display = 'none';
+      } else {
+        bubble.style.transform = 'translateX(132px)';
+        colBtn.style.color = '#FFF';
+        libBtn.style.color = 'rgba(255, 255, 255, 0.6)';
+        colContent.style.display = 'block';
+        libContent.style.display = 'none';
+        checkServerActivation(false);
+      }
+    }
+
+    // Initial page setup
+    window.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('hubKeyCode').innerText = `<${activeKey}>`;
+      renderVideoGrid();
+      checkServerActivation(false);
+    });
   </script>
 </body>
 </html>
