@@ -212,9 +212,11 @@ Your video will be sent here automatically after conversion in Viora."""
 
     return "EVENT_RECEIVED", 200
 
+@app.route("/api/device/<key>", methods=["GET"])
 @app.route("/get_phone", methods=["GET"])
-def get_registered_phone():
-    key = request.args.get("key", "").strip()
+def get_registered_phone(key=None):
+    if not key:
+        key = request.args.get("key", "").strip()
     if not key:
         return jsonify({"status": "error", "message": "key parameter is required"}), 400
     db = load_db()
