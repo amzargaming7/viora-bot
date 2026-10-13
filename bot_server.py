@@ -378,7 +378,7 @@ def upload_video():
     save_path = f"/tmp/{int(time.time())}_{device_key}.mp4"
     file.save(save_path)
     
-    caption = "Your HD video is ready. Tap Forward and choose My Status to post."
+    caption = ""
     ok, resp = send_whatsapp_video(target, save_path, caption)
     
     if os.path.exists(save_path):
