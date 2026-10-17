@@ -11,13 +11,13 @@ PORT = int(os.environ.get("PORT", 10000))
 VERIFY_TOKEN = os.environ.get("VERIFY_TOKEN", "viora_verify_secret")
 PHONE_NUMBER_ID = os.environ.get("PHONE_NUMBER_ID", "1282282738312539")
 
-# Read token from all possible environment variable names used by user
+# Read token from environment or use active token
 WHATSAPP_TOKEN = (
     os.environ.get("WHATSAPP_TOKEN") or 
     os.environ.get("META_ACCESS_TOKEN") or 
     os.environ.get("ACCESS_TOKEN") or 
     os.environ.get("TOKEN") or 
-    "EAAXNjPMdkMIBSjm7i8HsAUMCaC17YAPRp4OrEQZAhwIe3d9pwHIsgPKwOIFZB5eg8fz4P1yJU8mtT8RIy8JdZChZBIq0CscY5PlZA04IBt9WmF97Ud6sfoVGUQxXAZBmvikepqo2q5yBtOh66xA1JgfDdxBL5Ihxbvsoa4djqMLXFp5D447n7OSqiqsbmGnAZDZD"
+    "EAAXNjPMdkMIBSl5wkbTDhnwyZBNDRin6uiCbbyPOuOsYgCPniCtZCxoA4wB1Q5i5t92uJxbtBDPnbg7iw50EKIxd8ciwlGp2kZCHBYNUpIsYJFuwfN3uX7dK7J2g04MBaeNaVyDUfaSH7ZCZC6YoJZCPiZBu5DnNTq55XMZA30V1eIPkHZCfdZANXLIL871u2IaXYIowZDZD"
 )
 
 CONFIG_FILE = "config.json"
@@ -123,7 +123,7 @@ def send_whatsapp_text(target, text):
             print(f"[SEND_TEXT Phone] Exception: {e}")
             return False
 
-def send_whatsapp_video(target, video_path, caption):
+def send_whatsapp_video(target, video_path, caption=None):
     if not WHATSAPP_TOKEN or not target:
         return False, "WHATSAPP_TOKEN or target missing"
         
@@ -152,6 +152,11 @@ def send_whatsapp_video(target, video_path, caption):
             "Content-Type": "application/json"
         }
         
+        # Objek video bersih tanpa kapsyen teks
+        video_payload = {"id": media_id}
+        if caption:
+            video_payload["caption"] = caption
+        
         if is_bsuid(target):
             # Attempt 1: recipient
             payload1 = {
@@ -159,7 +164,7 @@ def send_whatsapp_video(target, video_path, caption):
                 "recipient_type": "individual",
                 "recipient": target,
                 "type": "video",
-                "video": {"id": media_id, "caption": caption}
+                "video": video_payload
             }
             res1 = requests.post(msg_url, headers=msg_headers, json=payload1, timeout=30)
             if res1.status_code in [200, 201]:
@@ -171,7 +176,7 @@ def send_whatsapp_video(target, video_path, caption):
                 "recipient_type": "individual",
                 "to": target,
                 "type": "video",
-                "video": {"id": media_id, "caption": caption}
+                "video": video_payload
             }
             res2 = requests.post(msg_url, headers=msg_headers, json=payload2, timeout=30)
             return res2.status_code in [200, 201], res2.text
@@ -181,7 +186,7 @@ def send_whatsapp_video(target, video_path, caption):
                 "recipient_type": "individual",
                 "to": target,
                 "type": "video",
-                "video": {"id": media_id, "caption": caption}
+                "video": video_payload
             }
             res = requests.post(msg_url, headers=msg_headers, json=payload, timeout=30)
             return res.status_code in [200, 201], res.text
@@ -341,7 +346,7 @@ def get_version():
         "download_url": "https://viora-bot.onrender.com/download/viora.apk",
         "changelog": (
             "Viora v1.0 Official Release\n"
-            "- PureStatus 1152x1920 HD Status Engine\n"
+            "- Viora 1152x1920 Lossless HD Engine\n"
             "- WhatsApp Username Privacy / BSUID Auto-Detection\n"
             "- Direct WhatsApp Bot Delivery with HD Badge\n"
             "- Built-in In-App OTA Auto-Updater"
@@ -378,8 +383,8 @@ def upload_video():
     save_path = f"/tmp/{int(time.time())}_{device_key}.mp4"
     file.save(save_path)
     
-    caption = ""
-    ok, resp = send_whatsapp_video(target, save_path, caption)
+    # Hantar video HD tanpa sebarang kapsyen teks
+    ok, resp = send_whatsapp_video(target, save_path, caption=None)
     
     if os.path.exists(save_path):
         os.remove(save_path)
